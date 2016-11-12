@@ -1,6 +1,7 @@
 let uuid = require('uuid');
 
 let SOCKET = require('../constants/socket');
+let CONSTANTS = require('../constants/game');
 
 const TAXI_CONSTANTS = 400;
 
@@ -16,6 +17,8 @@ class Taxi extends Phaser.Sprite {
         this.anchor.setTo(0.12, 0);
 
         this.id = uuid.v4();
+        this.x = 27 * CONSTANTS.TILE_WIDTH;
+        this.y = 24 * CONSTANTS.TILE_HEIGHT;
 
         this.setupLabel(nick);
         this.setupControls();
@@ -34,13 +37,17 @@ class Taxi extends Phaser.Sprite {
 
     setupLabel(nick) {
         this.nick = nick;
-        let x = this._createPositionX();
-        let y = this._createPositionY();
-        this.$label = this.game.add.text(x, y, this.nick, {
+        this.$label = this.game.add.text(0, 0, '', {
             fill: '#ffffff',
-            fontSize: 12
+            fontSize: 14
         });
         this.$label.anchor.setTo(0.5, 0);
+        this.updateLabelContent();
+    }
+
+    updateLabelContent() {
+        let label = this.nick + ' (' + this.x + ', ' + this.y + ')';
+        this.$label.setText(label);
     }
 
     moveLabel() {
@@ -56,12 +63,7 @@ class Taxi extends Phaser.Sprite {
 
     setupControls() {
         let keyboard = this.game.input.keyboard;
-
         this.cursors = keyboard.createCursorKeys();
-
-        keyboard.addCallbacks(this, (...args) => {
-            this.game.socket.emit(SOCKET.MOVE_PLAYER, this.toJSON());
-        });
     }
 
     resetVelocity() {
@@ -89,6 +91,7 @@ class Taxi extends Phaser.Sprite {
         }
 
         this.moveLabel();
+        this.updateLabelContent();
     }
 
     destroy(...args) {
