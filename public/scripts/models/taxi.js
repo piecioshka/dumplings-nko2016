@@ -1,6 +1,5 @@
 let uuid = require('uuid');
 
-let SOCKET = require('../constants/socket');
 let CONSTANTS = require('../constants/game');
 
 const TAXI_CONSTANTS = 400;
@@ -11,18 +10,19 @@ class Taxi extends Phaser.Sprite {
     nick = null;
     $label = null;
 
-    constructor(game, nick) {
+    constructor(game, { nick, x, y, id }) {
         super(game, 0, 0, 'taxi', 1);
 
         this.anchor.setTo(0.12, 0);
 
-        this.id = uuid.v4();
-        this.x = 27 * CONSTANTS.TILE_WIDTH;
-        this.y = 24 * CONSTANTS.TILE_HEIGHT;
+        this.id = id || uuid.v4();
+        this.x = x || 27 * CONSTANTS.TILE_WIDTH;
+        this.y = y || 24 * CONSTANTS.TILE_HEIGHT;
 
         this.setupLabel(nick);
         this.setupControls();
         this.setupBody();
+        this.moveLabel();
 
         game.add.existing(this);
     }
@@ -92,6 +92,10 @@ class Taxi extends Phaser.Sprite {
 
         this.moveLabel();
         this.updateLabelContent();
+    }
+
+    isMoved() {
+        return this.deltaX || this.deltaY;
     }
 
     destroy(...args) {
