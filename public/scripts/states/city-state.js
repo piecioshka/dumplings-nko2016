@@ -45,9 +45,7 @@ class CityState extends Phaser.State {
     }
 
     setupPlayer() {
-        this.game.player = new Taxi(this.game, this.game.nick);
-        this.game.player.moveLabel();
-
+        this.game.player = new Taxi(this.game, { nick: this.game.nick });
         this.game.socket.emit(SOCKET.SETUP_PLAYER, this.game.player.toJSON());
     }
 
@@ -63,12 +61,13 @@ class CityState extends Phaser.State {
 
                 // console.info('New opponent', player);
 
-                let taxi = new Taxi(this.game, player.nick);
-                taxi.x = player.x;
-                taxi.y = player.y;
-                taxi.id = player.id;
+                let taxi = new Taxi(this.game, {
+                    nick: player.nick,
+                    x: player.x,
+                    y: player.y,
+                    id: player.id
+                });
                 this.opponents.set(taxi.id, taxi);
-                // debugger;
             });
         });
 
@@ -82,9 +81,9 @@ class CityState extends Phaser.State {
             // console.warn('Opponent "%s" moved to [%s, %s]', opponent.nick, opponent.x, opponent.y);
 
             let taxi = this.opponents.get(opponentJSON.id);
-
             taxi.x = opponentJSON.x;
             taxi.y = opponentJSON.y;
+            taxi.moveLabel();
         });
 
         this.game.socket.on(SOCKET.DISCONNECT_PLAYER, (opponentJSON) => {
@@ -122,10 +121,7 @@ class CityState extends Phaser.State {
         this.game.debug.bodyInfo(this.game.player, 25, 25);
         this.game.debug.body(this.game.player);
 
-        let deltaX = this.game.player.deltaX;
-        let deltaY = this.game.player.deltaY;
-
-        if (deltaX || deltaY) {
+        if (this.game.player.isMoved()) {
             this.game.socket.emit(SOCKET.MOVE_PLAYER, this.game.player.toJSON());
         }
     }
