@@ -7,11 +7,13 @@ let SOCKET = require('../constants/socket');
 class CityState extends Phaser.State {
     map = null;
     layer = null;
+    opponents = null;
 
     create() {
         this.setupWorld();
         this.setupPlayer();
         this.setupCamera();
+        this.setupOpponents();
 
         this.cb = new CBRadio(this.game);
     }
@@ -38,6 +40,48 @@ class CityState extends Phaser.State {
         this.game.player = new Taxi(this.game, this.game.nick);
         this.game.player.move(27, 24);
         this.game.socket.emit(SOCKET.SETUP_PLAYER, this.game.player.toJSON());
+    }
+
+    setupOpponents() {
+        this.opponents = new Map();
+        this.game.socket.on(SOCKET.SETUP_PLAYER, (opponent) => {
+            if (opponent.id === this.game.player.id) {
+                return;
+            }
+
+            debugger;
+
+            let taxi = new Taxi(this.game, opponent.nick);
+            taxi.move(opponent.x, opponent.y);
+            taxi.id = opponent.id;
+            this.opponents.set(taxi.id, taxi);
+        });
+
+        this.game.socket.on(SOCKET.MOVE_PLAYER, (opponent) => {
+            if (opponent.id === this.game.player.id) {
+                return;
+            }
+
+            debugger;
+
+            let taxi = this.opponents.get(opponent.id);
+            taxi.move(opponent.x, opponent.y);
+        });
+
+        this.game.socket.on(SOCKET.DESTROY_PLAYER, (opponent) => {
+            if (!opponent) {
+                return;
+            }
+
+            if (opponent.id === this.game.player.id) {
+                return;
+            }
+
+            debugger;
+
+            let taxi = this.opponents.get(opponent.id);
+            taxi.destroy();
+        });
     }
 
     update() {

@@ -101,6 +101,11 @@ class Taxi extends Phaser.Sprite {
         this.moveLabel();
     }
 
+    destroy(...args) {
+        super.destroy(...args);
+        this.label.destroy();
+    }
+
     toJSON() {
         return {
             x: this.x,
