@@ -8,28 +8,25 @@ class CityState extends Phaser.State {
     layer = null;
 
     create() {
-        this.setupTilemap();
-        this.setupLayers();
+        this.setupWorld();
         this.setupPlayer();
         this.setupCamera();
 
         this.cb = new CBRadio(this.game);
     }
 
-    setupTilemap() {
+    setupWorld() {
         this.physics.startSystem(Phaser.Physics.ARCADE);
 
         this.map = this.add.tilemap('city-warsaw');
-        this.map.addTilesetImage('city');
-        this.map.addTilesetImage('river');
-        this.map.addTilesetImage('street');
-        // this.map.setCollisionByExclusion([1]);
-        this.map.setCollision([0, 1, 2, 3]);
-    }
+        this.map.addTilesetImage('street'); // 1
+        this.map.addTilesetImage('city');   // 2
+        this.map.addTilesetImage('river');  // 3
+        this.map.setCollision([2, 3]);
 
-    setupLayers() {
         this.layer = this.map.createLayer('City Warsaw');
         this.layer.resizeWorld();
+        // this.layer.debug = true;
     }
 
     setupCamera() {
@@ -42,18 +39,17 @@ class CityState extends Phaser.State {
     }
 
     update() {
-        this.game.player.updateMove();
+        this.game.player.resetVelocity();
+        this.game.player.updateVelocity();
         this.handleCollision();
     }
 
     handleCollision() {
-        this.physics.arcade.collide(this.game.player, this.layer, (...args) => {
-            console.log(...args);
-        });
+        this.physics.arcade.collide(this.game.player, this.layer);
     }
 
     render() {
-        this.game.debug.bodyInfo(this.game.player, 25, 25);
+        // this.game.debug.bodyInfo(this.game.player, 25, 25);
         this.game.debug.body(this.game.player);
     }
 }
