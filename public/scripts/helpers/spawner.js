@@ -12,6 +12,7 @@ class Spawner {
         this.game = game;
         this.SpriteClass = SpriteClass;
         this.spriteGroup = this.game.add.group();
+        this.spriteGroup.enableBody = true;
     }
 
     onDestroyHandler(event) {

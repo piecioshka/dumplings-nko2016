@@ -112,6 +112,10 @@ class CityState extends Phaser.State {
 
     handleCollision() {
         this.physics.arcade.collide(this.game.player, this.layer);
+        this.physics.arcade.collide(this.game.player, this.passengerSpawner.getSpriteGroup(), (player, item) => {
+            console.log('Collect item', item);
+            item.destroy();
+        });
     }
 
     render() {
