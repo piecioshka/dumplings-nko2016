@@ -3,14 +3,14 @@ let getCenterPositionX = require('../helpers/state-helper').getCenterPositionX;
 let locale = require('../../locale/en.json');
 
 class LoadingState extends Phaser.State {
+    getLeftPosition = getCenterPositionX.bind(this);
+
     constructor(...args) {
         super(...args);
     }
 
     preload() {
-        let getLeftPosition = getCenterPositionX.bind(this);
-
-        let progressBar = this.add.sprite(getLeftPosition('pixel-loading'), 150, 'pixel-loading');
+        let progressBar = this.add.sprite(this.getLeftPosition('pixel-loading'), 250, 'pixel-loading');
         this.load.setPreloadSprite(progressBar);
 
         this.load.path = './assets/sprites/';
@@ -21,6 +21,8 @@ class LoadingState extends Phaser.State {
         this.load.image('taxi', 'taxi.png');
         this.load.image('button', 'button.png');
         this.load.image('logo', 'logo.png');
+        this.load.image('text-input', 'text-input.png');
+        this.load.image('cb-radio', 'cb-radio.png');
 
         this.load.path = './assets/maps/';
 
@@ -28,7 +30,7 @@ class LoadingState extends Phaser.State {
     }
 
     create() {
-        this.add.text(this.world.centerX - 80, 100, locale.PLEASE_WAIT, { fill: '#ffffff' });
+        this.add.text(this.world.centerX - 80, 200, locale.PLEASE_WAIT, { fill: '#ffffff' });
 
         setTimeout(() => {
             this.game.trigger(EVENTS.LOADING_COMPLETED);
