@@ -5,13 +5,13 @@ class Spawner {
     map = null;
     tilesGroup = {};
     SpriteClass = null;
-    pool = null;
+    spriteGroup = null;
     threshold = null;
 
     constructor(game, SpriteClass) {
         this.game = game;
         this.SpriteClass = SpriteClass;
-        this.pool = this.game.add.group();
+        this.spriteGroup = this.game.add.group();
     }
 
     onDestroyHandler(event) {
@@ -28,7 +28,7 @@ class Spawner {
     }
 
     spawn() {
-        if (this.pool.length >= this.threshold) {
+        if (this.spriteGroup.length >= this.threshold) {
             return;
         }
 
@@ -36,13 +36,13 @@ class Spawner {
     }
 
     countSpritesToCreate() {
-        return (this.threshold - this.pool.length);
+        return (this.threshold - this.spriteGroup.length);
     }
 
     createGroup(n) {
         for (let i = n; i > 0; i--) {
             let sprite = this.create();
-            this.pool.add(sprite);
+            this.spriteGroup.add(sprite);
         }
     }
 
@@ -91,7 +91,7 @@ class Spawner {
     }
 
     destroy(sprite) {
-        this.pool.remove(sprite, true);
+        this.spriteGroup.remove(sprite, true);
         sprite.destroy();
     }
 
