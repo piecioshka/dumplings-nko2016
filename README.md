@@ -7,6 +7,8 @@ Link do game: [dumplings.2016.nodeknockout.com](http://dumplings.2016.nodeknocko
 ## What we used?
 
 * Tiled - http://www.mapeditor.org/
+    - map: 3200x3200 (px)
+    - tile: 32x32 (px)
 
 ## Authors
 
