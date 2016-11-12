@@ -1,35 +1,17 @@
-# Node Knockout 2016 Starter
+# dumplings.2016.nodeknockout.com
 
-A barebones Node.js app using [Express 4](http://expressjs.com/).
+> :video_game: Game for [Node Knockout 2016](https://www.nodeknockout.com/) hackathon
 
-Tuned to run on EngineYard Cloud.
+Link do game: [dumplings.2016.nodeknockout.com](http://dumplings.2016.nodeknockout.com)
 
-## Running Locally
+## What we used?
 
-Make sure you have [Node.js](http://nodejs.org/) installed (uses version `4.4.5`).
+* Tiled - http://www.mapeditor.org/
 
-```sh
-git clone git@github.com:rumblex/nodeknockout2016-dumplings.git # or clone your own fork
-cd nodeknockout2016-dumplings
-npm install
-npm start
-```
+## Authors
 
-Your app should now be running on [localhost:5000](http://localhost:5000/).
+* [Katarzyna](https://github.com/kasiarzyna25)
+* [Krzysztof](https://github.com/ksyrytczyk/)
+* [Piotr](https://github.com/piecioshka)
 
-## Deploying to EngineYard
-
-Log into <https://cloud.engineyard.com>. Navigate to your Team's Application, and click "Deploy".
-
-
-## Supported Node.js versions
-
-Please use one of these Node.js versions
-
-4.4.5, 4.6.0, 5.11.0, 6.4.0, 6.7.0
-
-## Documentation
-
-For more information about using Node.js on EngineYard, check out these articles
-
-- [Deploy Your Node.js Application on Engine Yard Cloud](https://support.cloud.engineyard.com/hc/en-us/articles/205411878-Deploy-Your-Node-js-Application-on-Engine-Yard-Cloud)
+@ 2016
