@@ -18,7 +18,7 @@ class CityState extends Phaser.State {
 
         this.game.player = new Taxi(this.game);
 
-        this.game.player.move(10, 5);
+        this.game.player.move(27, 24);
         this.camera.follow(this.game.player);
 
         this.cb = new CBRadio(this.game);
