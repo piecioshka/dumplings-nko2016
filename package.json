@@ -5,12 +5,12 @@
     "main": "index.js",
     "license": "MIT",
     "scripts": {
-        "prestart": "npm run build",
         "start": "node index.js",
         "clear": "rm -rf node_modules/ npm-debug.log public/dist/ typings/",
         "build": "webpack --progress --profile",
         "watch": "webpack --progress -w",
         "count": "find public/scripts -name '*.js' | xargs wc -l | sort",
+        "postinstall": "npm run build",
         "typings": "typings install"
     },
     "dependencies": {
