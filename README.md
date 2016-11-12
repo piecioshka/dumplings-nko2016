@@ -25,4 +25,6 @@ $ yarn run start
 * [Krzysztof](https://github.com/ksyrytczyk/)
 * [Piotr](https://github.com/piecioshka)
 
+---
+
 @ 2016

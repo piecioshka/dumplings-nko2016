@@ -14,11 +14,11 @@ module.exports = {
     module: {
         loaders: [
             {
-                text: /phaser\.js$/,
+                test: /phaser\.js$/,
                 loader: 'script-loader'
             },
             {
-                text: /\.js$/,
+                test: /public\/(.*)\.js$/,
                 exclude: /node_modules/,
                 loader: 'babel-loader'
             }
