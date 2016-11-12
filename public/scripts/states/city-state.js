@@ -2,6 +2,7 @@ let CBRadio = require('../models/cb');
 let Taxi = require('../models/taxi');
 let Passenger = require('../models/passenger');
 let Spawner = require('../helpers/spawner');
+let displayVersion = require('../helpers/version-helper').displayVersion;
 let SOCKET = require('../constants/socket');
 
 class CityState extends Phaser.State {
@@ -17,6 +18,8 @@ class CityState extends Phaser.State {
         this.setupPassengers();
 
         this.cb = new CBRadio(this.game);
+        this.cb.speak('ssdfsdf');
+        displayVersion(this);
     }
 
     setupPassengers() {

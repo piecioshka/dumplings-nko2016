@@ -33,12 +33,18 @@ class LoadingState extends Phaser.State {
     }
 
     create() {
+        this.add.image(0, 0, 'taxi-city-intro');
+        let $car = this.add.image(-100, 340, 'taxi-big-1');
+        setInterval(() => {
+            $car.x += 10;
+        }, 50);
+
         let $text = this.add.text(this.world.centerX, 200, locale.PLEASE_WAIT, { fill: '#ffffff' });
         $text.anchor.setTo(0.5, 0);
 
         setTimeout(() => {
             this.game.trigger(EVENTS.LOADING_COMPLETED);
-        }, 500);
+        }, 1500);
     }
 }
 
