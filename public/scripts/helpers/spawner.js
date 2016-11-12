@@ -3,6 +3,7 @@ let CONSTANTS = require('../constants/game');
 class Spawner {
     game = null;
     map = null;
+    tilesGroup = new Map();
     SpriteClass = null;
     pool = null;
     threshold = null;
@@ -23,6 +24,7 @@ class Spawner {
 
     setMap(map) {
         this.map = map;
+        this.tilesGroup = this.getTilesGroupByIndex();
     }
 
     spawn() {
@@ -44,19 +46,40 @@ class Spawner {
         }
     }
 
-    getRandomPosition() {
-        let rnd = this.game.rnd;
-        let x = rnd.integerInRange(0, this.map.width) * CONSTANTS.TILE_WIDTH;
-        let y = rnd.integerInRange(0, this.map.height) * CONSTANTS.TILE_HEIGHT;
+    getTilesGroupByIndex() {
+        let restParams = [0, 0, (this.map.width - 1), (this.map.height - 1), 0];
+        let getTilesetName = (m, i) => (m.tilesets[i] && m.tilesets[i].name);
+        let group = {};
 
-        return { x, y };
+        this.map.forEach((tile) => {
+            let tilesetIndex = (tile.index - 1);
+            let name = getTilesetName(this.map, tilesetIndex);
+
+            if (name) {
+                group[name] = (group[name] || []);
+                group[name].push(tile);
+            }
+        }, this, ...restParams);
+
+        return group;
+    }
+
+    getRandomStreetTile() {
+        let streetTiles = this.tilesGroup['street'];
+
+        let rnd = this.game.rnd;
+        let idx = rnd.integerInRange(0, streetTiles.length);
+
+        return streetTiles[idx];
     }
 
     create() {
         let sprite = new this.SpriteClass(this.game);
-        let { x, y } = this.getRandomPosition();
-        sprite.x = x;
-        sprite.y = y;
+        let randomStreetTile = this.getRandomStreetTile();
+        let { x, y } = randomStreetTile;
+
+        sprite.x = x * CONSTANTS.TILE_WIDTH;
+        sprite.y = y * CONSTANTS.TILE_HEIGHT;
 
         sprite.events.onDestroy.add((e) => this.onDestroyHandler(e));
 
