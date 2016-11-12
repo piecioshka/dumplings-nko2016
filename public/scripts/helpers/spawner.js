@@ -17,11 +17,18 @@ class Spawner {
     }
 
     start() {
-        this.replenish();
+        this.createBunch(SPAWNER_CONSTANTS.POOL_SIZE);
     }
 
     countSpritesToCreate() {
         return (SPAWNER_CONSTANTS.POOL_SIZE - this.pool.size);
+    }
+
+    createBunch(n) {
+        for (let i = n; i > 0; i--) {
+            let sprite = this.create();
+            this.pool.add(sprite);
+        }
     }
 
     create() {
@@ -38,10 +45,7 @@ class Spawner {
     replenish() {
         let count = this.countSpritesToCreate();
 
-        for (let i = count; i > 0; i--) {
-            let sprite = this.create();
-            this.pool.add(sprite);
-        }
+        this.createBunch(count);
     }
 }
 
