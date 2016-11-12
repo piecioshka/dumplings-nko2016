@@ -18,7 +18,7 @@ module.exports = function (server) {
 
         socket.on(SOCKET.SETUP_PLAYER, function (player) {
             console.log('setup player: message: ' + JSON.stringify(player));
-            io.emit(SOCKET.MOVE_PLAYER, player);
+            io.emit(SOCKET.SETUP_PLAYER, player);
             me = player;
         });
 

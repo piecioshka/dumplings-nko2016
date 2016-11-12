@@ -70,8 +70,6 @@ class Taxi extends Phaser.Sprite {
         this.cursors = keyboard.createCursorKeys();
 
         keyboard.addCallbacks(this, (...args) => {
-            args
-            debugger;
             this.game.socket.emit(SOCKET.MOVE_PLAYER, this.toJSON());
         });
     }
