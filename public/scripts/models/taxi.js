@@ -1,9 +1,14 @@
+let CONSTANTS = require('../constants/game');
+
 class Taxi extends Phaser.Sprite {
     constructor(game) {
-        super(0, 0, 'taxi');
-        game.add.sprite(this);
+        super(game, 0, 0, 'taxi', 1);
+        game.add.existing(this);
+    }
 
-        // game.camera.follow(this);
+    move(x, y) {
+        this.x = x * CONSTANTS.TILE_WIDTH;
+        this.y = y * CONSTANTS.TILE_HEIGHT;
     }
 }
 

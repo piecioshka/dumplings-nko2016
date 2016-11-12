@@ -16,6 +16,8 @@ class CityState extends Phaser.State {
         this.layer.resizeWorld();
 
         this.game.player = new Taxi(this.game);
+        this.game.player.move(10, 5);
+        this.camera.follow(this.game.player);
     }
 }
 
