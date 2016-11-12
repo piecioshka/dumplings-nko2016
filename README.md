@@ -7,9 +7,9 @@ Link do game: [dumplings.2016.nodeknockout.com](http://dumplings.2016.nodeknocko
 ## What we used?
 
 * Tiled - http://www.mapeditor.org/
-    - map: 3200x3200 (px)
-    - view port: 1024x640 (32 / 20 = 1.6)
-    - tile: 32x32 (px)
+    - map: 6400x6400 (px)
+    - view port: 1024x640 (16 / 10 = 1.6)
+    - tile: 64x64 (px)
 
 ## Installation
 

@@ -7,10 +7,13 @@ let LoadingState = require('./states/loading-state');
 let MenuState = require('./states/menu-state');
 let CityState = require('./states/city-state');
 
+let socket = io();
+
 class Game extends Phaser.Game {
     constructor(...args) {
         super(...args);
         SuperEventEmitter.mixin(this);
+        this.socket = socket;
     }
 }
 
