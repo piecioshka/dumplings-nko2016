@@ -28,6 +28,7 @@ class MenuState extends Phaser.State {
         this.add.image(positionX - 70, positionY, 'gt');
         this.add.image(positionX + 270, positionY, 'cross');
         this.$text = this.add.text(this.world.centerX, positionY + 10, '', {});
+        this.$text.anchor.setTo(0.5, 0);
 
         // TODO(piecioshka): remove before deploy
         this.$text.setText('ninja');

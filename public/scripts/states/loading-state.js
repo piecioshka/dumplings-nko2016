@@ -32,7 +32,8 @@ class LoadingState extends Phaser.State {
     }
 
     create() {
-        this.add.text(this.world.centerX - 80, 200, locale.PLEASE_WAIT, { fill: '#ffffff' });
+        let $text = this.add.text(this.world.centerX, 200, locale.PLEASE_WAIT, { fill: '#ffffff' });
+        $text.anchor.setTo(0.5, 0);
 
         setTimeout(() => {
             this.game.trigger(EVENTS.LOADING_COMPLETED);
