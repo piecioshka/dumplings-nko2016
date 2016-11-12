@@ -1,8 +1,11 @@
 let SuperEventEmitter = require('super-event-emitter');
-let LoadingState = require('./states/loading-state');
-let CityState = require('./states/city-state');
 let GameStateManager = require('./state-manager');
 let CONSTANTS = require('./constants/game');
+
+let BootstrapState = require('./states/boostrap-state');
+let LoadingState = require('./states/loading-state');
+let MenuState = require('./states/menu-state');
+let CityState = require('./states/city-state');
 
 class Game extends Phaser.Game {
     constructor(...args) {
@@ -12,7 +15,9 @@ class Game extends Phaser.Game {
 }
 
 let game = new Game(CONSTANTS.GAME_WIDTH, CONSTANTS.GAME_HEIGHT, Phaser.Canvas, 'game');
+game.state.add('BootstrapState', BootstrapState);
 game.state.add('LoadingState', LoadingState);
+game.state.add('MenuState', MenuState);
 game.state.add('CityState', CityState);
 
 let manager = new GameStateManager(game);

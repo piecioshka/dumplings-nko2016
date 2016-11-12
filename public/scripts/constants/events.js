@@ -1,3 +1,5 @@
 module.exports = {
-    LOADING_COMPLETE: 'loading-complete'
+    BOOTSTRAP_COMPLETED: 'bootstrap-completed',
+    LOADING_COMPLETED: 'loading-completed',
+    START_GAME: 'user-click-play-button'
 };

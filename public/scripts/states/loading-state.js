@@ -1,5 +1,6 @@
 let EVENTS = require('../constants/events');
-let CONSTANTS = require('../constants/game');
+let getCenterPositionX = require('../helpers/state-helper').getCenterPositionX;
+let locale = require('../../locale/en.json');
 
 class LoadingState extends Phaser.State {
     constructor(...args) {
@@ -7,12 +8,19 @@ class LoadingState extends Phaser.State {
     }
 
     preload() {
+        let getLeftPosition = getCenterPositionX.bind(this);
+
+        let progressBar = this.add.sprite(getLeftPosition('pixel-loading'), 150, 'pixel-loading');
+        this.load.setPreloadSprite(progressBar);
+
         this.load.path = './assets/sprites/';
 
         this.load.image('city', 'city.png');
         this.load.image('river', 'river.png');
         this.load.image('street', 'street.png');
         this.load.image('taxi', 'taxi.png');
+        this.load.image('button', 'button.png');
+        this.load.image('logo', 'logo.png');
 
         this.load.path = './assets/maps/';
 
@@ -20,7 +28,11 @@ class LoadingState extends Phaser.State {
     }
 
     create() {
-        this.game.trigger(EVENTS.LOADING_COMPLETE);
+        this.add.text(this.world.centerX - 80, 100, locale.PLEASE_WAIT, { fill: '#ffffff' });
+
+        setTimeout(() => {
+            this.game.trigger(EVENTS.LOADING_COMPLETED);
+        }, 500);
     }
 }
 
