@@ -1,6 +1,5 @@
 let uuid = require('uuid');
 
-let CONSTANTS = require('../constants/game');
 let SOCKET = require('../constants/socket');
 
 const TAXI_CONSTANTS = 400;
@@ -55,15 +54,6 @@ class Taxi extends Phaser.Sprite {
         this.body.setSize(55, 50, 15, 7);
     }
 
-    // Używamy TYLKO do ustawienia modelu na początku rozgrywki.
-    // Przez modyfikację pozycji nie uzyskamy kolizji!!!
-    move(x, y) {
-        this.x = x * CONSTANTS.TILE_WIDTH;
-        this.y = y * CONSTANTS.TILE_HEIGHT;
-
-        this.moveLabel();
-    }
-
     setupControls() {
         let keyboard = this.game.input.keyboard;
 
@@ -103,7 +93,7 @@ class Taxi extends Phaser.Sprite {
 
     destroy(...args) {
         super.destroy(...args);
-        this.label.destroy();
+        this.$label.destroy();
     }
 
     toJSON() {
