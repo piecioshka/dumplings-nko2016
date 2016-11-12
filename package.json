@@ -6,6 +6,7 @@
     "license": "MIT",
     "scripts": {
         "start": "node index.js",
+        "dev": "nodemon index.js",
         "clear": "rm -rf node_modules/ npm-debug.log public/dist/ typings/",
         "build": "webpack --progress --profile",
         "watch": "webpack --progress -w",
