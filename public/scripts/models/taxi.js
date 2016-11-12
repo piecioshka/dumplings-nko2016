@@ -1,13 +1,6 @@
 let CONSTANTS = require('../constants/game');
 
-const TAXI_CONSTANTS = {
-    MOVE_BY: {
-        up: 10,
-        down: 10,
-        left: 10,
-        right: 10
-    }
-};
+const TAXI_CONSTANTS = 400;
 
 class Taxi extends Phaser.Sprite {
     cursors = null;
@@ -27,6 +20,8 @@ class Taxi extends Phaser.Sprite {
         this.body.setSize(60, 64, 2, 0);
     }
 
+    // Używamy TYLKO do ustawienia modelu na początku rozgrywki.
+    // Przez modyfikację pozycji nie uzyskamy kolizji!!!
     move(x, y) {
         this.x = x * CONSTANTS.TILE_WIDTH;
         this.y = y * CONSTANTS.TILE_HEIGHT;
@@ -36,23 +31,28 @@ class Taxi extends Phaser.Sprite {
         this.cursors = this.game.input.keyboard.createCursorKeys();
     }
 
-    updateMove() {
+    resetVelocity() {
+        this.body.velocity.setTo(0, 0);
+    }
+
+    updateVelocity() {
         let { up, down, left, right } = this.cursors;
+        let velocity = this.body.velocity;
 
         if (up.isDown) {
-            this.y -= TAXI_CONSTANTS.MOVE_BY.up;
+            velocity.y = -1 * TAXI_CONSTANTS;
         }
 
         if (down.isDown) {
-            this.y += TAXI_CONSTANTS.MOVE_BY.down;
+            velocity.y = TAXI_CONSTANTS;
         }
 
         if (left.isDown) {
-            this.x -= TAXI_CONSTANTS.MOVE_BY.left;
+            velocity.x = -1 * TAXI_CONSTANTS;
         }
 
         if (right.isDown) {
-            this.x += TAXI_CONSTANTS.MOVE_BY.right;
+            velocity.x = TAXI_CONSTANTS;
         }
     }
 }
