@@ -23,6 +23,8 @@ class LoadingState extends Phaser.State {
         this.load.image('logo', 'logo.png');
         this.load.image('text-input', 'text-input.png');
         this.load.image('cb-radio', 'cb-radio.png');
+        this.load.image('cross', 'cross.png');
+        this.load.image('gt', 'gt.png');
 
         this.load.path = './assets/maps/';
 

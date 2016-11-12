@@ -1,3 +1,4 @@
+let CBRadio = require('../models/cb');
 let Taxi = require('../models/taxi');
 
 class CityState extends Phaser.State {
@@ -19,6 +20,8 @@ class CityState extends Phaser.State {
 
         this.game.player.move(10, 5);
         this.camera.follow(this.game.player);
+
+        this.cb = new CBRadio(this.game);
     }
 
     update() {

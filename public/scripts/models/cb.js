@@ -16,7 +16,7 @@ class CBRadio extends Phaser.Sprite {
         return this.game.world.height - sprite.height;
     }
 
-    say(msg, type = 'info') {
+    speak(msg, type = 'info') {
         this.game.add.text(250, this.y + 20, msg, { fill: map.get(type) });
     }
 }
