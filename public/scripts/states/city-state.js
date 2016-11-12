@@ -44,8 +44,6 @@ class CityState extends Phaser.State {
         this.game.player.resetVelocity();
         this.game.player.updateVelocity();
         this.handleCollision();
-
-        this.game.socket.emit(SOCKET.MOVE_PLAYER, this.game.player.toJSON());
     }
 
     handleCollision() {
@@ -53,7 +51,7 @@ class CityState extends Phaser.State {
     }
 
     render() {
-        // this.game.debug.bodyInfo(this.game.player, 25, 25);
+        this.game.debug.bodyInfo(this.game.player, 25, 25);
         this.game.debug.body(this.game.player);
     }
 }

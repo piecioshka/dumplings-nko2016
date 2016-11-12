@@ -1,6 +1,7 @@
 let uuid = require('uuid');
 
 let CONSTANTS = require('../constants/game');
+let SOCKET = require('../constants/socket');
 
 const TAXI_CONSTANTS = 400;
 
@@ -12,6 +13,8 @@ class Taxi extends Phaser.Sprite {
 
     constructor(game, nick) {
         super(game, 0, 0, 'taxi', 1);
+
+        this.anchor.setTo(0.12, 0);
 
         this.id = uuid.v4();
 
@@ -62,7 +65,13 @@ class Taxi extends Phaser.Sprite {
     }
 
     setupControls() {
-        this.cursors = this.game.input.keyboard.createCursorKeys();
+        let keyboard = this.game.input.keyboard;
+
+        this.cursors = keyboard.createCursorKeys();
+
+        keyboard.addCallbacks(this, () => {
+            this.game.socket.emit(SOCKET.MOVE_PLAYER, this.toJSON());
+        });
     }
 
     resetVelocity() {
