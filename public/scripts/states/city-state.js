@@ -36,7 +36,7 @@ class CityState extends Phaser.State {
         let player = this.game.player = new Taxi(this.game);
         this.physics.enable(player, Phaser.Physics.ARCADE);
         player.body.collideWorldBounds = true;
-        player.move(10, 5);
+        player.move(27, 24);
     }
 
     update() {
