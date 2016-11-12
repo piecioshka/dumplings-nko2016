@@ -53,14 +53,14 @@ class CityState extends Phaser.State {
     setupOpponents() {
         this.opponents = new Map();
         this.game.socket.on(SOCKET.SETUP_PLAYER, (opponentJSON, playersJSON) => {
-            // console.debug('SOCKET.SETUP_PLAYER', opponentJSON, playersJSON);
+            console.debug('SOCKET.SETUP_PLAYER', opponentJSON, playersJSON);
 
             playersJSON.forEach((player) => {
                 if (player.id === this.game.player.id) {
                     return;
                 }
 
-                // console.info('New opponent', player);
+                console.info('New opponent', player);
 
                 let taxi = new Taxi(this.game, {
                     nick: player.nick,
@@ -79,7 +79,7 @@ class CityState extends Phaser.State {
                 return;
             }
 
-            // console.warn('Opponent "%s" moved to [%s, %s]', opponent.nick, opponent.x, opponent.y);
+            // console.warn('Opponent "%s" moved to [%s, %s]', opponentJSON.nick, opponentJSON.x, opponentJSON.y);
 
             let taxi = this.opponents.get(opponentJSON.id);
             taxi.x = opponentJSON.x;
@@ -88,7 +88,7 @@ class CityState extends Phaser.State {
         });
 
         this.game.socket.on(SOCKET.DISCONNECT_PLAYER, (opponentJSON) => {
-            // console.debug('SOCKET.DISCONNECT_PLAYER', opponentJSON);
+            console.debug('SOCKET.DISCONNECT_PLAYER', opponentJSON);
 
             if (!opponentJSON) {
                 return;
@@ -98,13 +98,10 @@ class CityState extends Phaser.State {
                 return;
             }
 
-            // console.error('Opponent is destroyed', opponent);
+            console.error('Opponent is destroyed', opponentJSON);
 
             let taxi = this.opponents.get(opponentJSON.id);
-            // TODO(piecioshka): serwer przesyła informację o wszystkich aktualnych graczach
-            if (taxi) {
-                taxi.destroy();
-            }
+            taxi.destroy();
         });
     }
 

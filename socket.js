@@ -36,11 +36,20 @@ module.exports = function (server) {
 
         let me = null;
 
-        socket.on('disconnect', function () {
-            console.log('user disconnected: ' + JSON.stringify(me));
+        function removePlayer() {
             io.emit(SOCKET.DISCONNECT_PLAYER, me);
             playerCollection.remove(me);
             me = null;
+        }
+
+        socket.on('error', function () {
+            console.log('error occur: ' + JSON.stringify(me));
+            removePlayer();
+        });
+
+        socket.on('disconnect', function () {
+            console.log('user disconnected: ' + JSON.stringify(me));
+            removePlayer();
         });
 
         socket.on(SOCKET.SETUP_PLAYER, function (player) {
@@ -51,7 +60,7 @@ module.exports = function (server) {
         });
 
         socket.on(SOCKET.MOVE_PLAYER, function (player) {
-            console.log('move player: message: ' + JSON.stringify(player));
+            // console.log('move player: message: ' + JSON.stringify(player));
             io.emit(SOCKET.MOVE_PLAYER, player);
             playerCollection.update(player.id, player);
         });
