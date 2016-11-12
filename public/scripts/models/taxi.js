@@ -14,10 +14,11 @@ class Taxi extends Phaser.Sprite {
 
     constructor(game) {
         super(game, 0, 0, 'taxi', 1);
-        game.add.existing(this);
 
         this.setupControls();
         this.setupBody();
+
+        game.add.existing(this);
     }
 
     setupBody() {
