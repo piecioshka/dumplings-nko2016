@@ -49,7 +49,7 @@ class Taxi extends Phaser.Sprite {
     setupBody() {
         this.game.physics.arcade.enable(this);
         this.body.collideWorldBounds = true;
-        this.body.setSize(60, 50, 2, 7);
+        this.body.setSize(55, 50, 15, 7);
     }
 
     // Używamy TYLKO do ustawienia modelu na początku rozgrywki.
