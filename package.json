@@ -1,33 +1,33 @@
 {
-  "name": "nko2016-sample",
-  "version": "0.0.1",
-  "description": "A barebones Node.js app using Express 4",
-  "main": "index.js",
-  "scripts": {
-    "start": "node index.js"
-  },
-  "dependencies": {
-    "babel-core": "^6.18.2",
-    "babel-loader": "^6.2.7",
-    "express": "^4.13.3",
-    "phaser": "^2.6.2"
-  },
-  "engines": {
-    "node": "4.4.5"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/rumblex-community/nodeknockout-2016-starter"
-  },
-  "keywords": [
-    "node",
-    "heroku",
-    "express"
-  ],
-  "author": "Mark Pundsack",
-  "contributors": [
-    "Zeke Sikelianos <zeke@sikelianos.com> (http://zeke.sikelianos.com)",
-    "Jacques Crocker <jacques@nodeknockout.com> (https://www.nodeknockout.com)"
-  ],
-  "license": "MIT"
+    "name": "dumplings-nko2016",
+    "version": "0.0.1",
+    "description": "Dumplings game for Node Knockout 2016",
+    "main": "index.js",
+    "license": "MIT",
+    "scripts": {
+        "start": "node index.js",
+        "clear": "rm -rf node_modules/ npm-debug.log public/dist/ typings/",
+        "build": "webpack --progress --profile",
+        "watch": "webpack --progress -w",
+        "count": "find public/scripts -name '*.js' -not -path 'public/scripts/vendor*' | xargs wc -l | sort -r",
+        "postinstall": "typings install"
+    },
+    "dependencies": {
+        "express": "^4.13.3"
+    },
+    "engines": {
+        "node": "4.4.5"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/rumblex-community/nodeknockout-2016-starter"
+    },
+    "devDependencies": {
+        "babel-core": "^6.18.2",
+        "babel-loader": "^6.2.7",
+        "phaser": "^2.6.2",
+        "script-loader": "^0.7.0",
+        "typings": "^2.0.0",
+        "webpack": "^1.13.3"
+    }
 }

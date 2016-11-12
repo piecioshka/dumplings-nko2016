@@ -11,6 +11,14 @@ Link do game: [dumplings.2016.nodeknockout.com](http://dumplings.2016.nodeknocko
     - view port: 1024x640 (32 / 20 = 1.6)
     - tile: 32x32 (px)
 
+## Installation
+
+```
+$ yarn
+$ yarn run build
+$ yarn run start
+```
+
 ## Authors
 
 * [Katarzyna](https://github.com/kasiarzyna25)
