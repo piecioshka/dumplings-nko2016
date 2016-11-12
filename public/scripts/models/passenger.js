@@ -1,7 +1,7 @@
 const PASSENGER_CONSTANTS = {
     POINTS: 100,
     SATISFACTION_RATIO: 0.01
-}
+};
 
 class Passenger extends Phaser.Sprite {
     satisfaction = 1; // range: [0, 1]

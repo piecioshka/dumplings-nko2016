@@ -24,7 +24,6 @@ class CityState extends Phaser.State {
         this.passengerSpawner.setThreshold(200);
         this.passengerSpawner.setMap(this.map);
         this.passengerSpawner.spawn();
-
     }
 
     setupWorld() {
