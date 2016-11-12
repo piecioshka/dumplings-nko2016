@@ -6,7 +6,8 @@ let CBRadio = require('../models/cb');
 
 class MenuState extends Phaser.State {
     getLeftPosition = getCenterPositionX.bind(this);
-    $text = null;
+    $nick = null;
+    $playButton = null;
 
     create() {
         this.setupMainLogo();
@@ -27,34 +28,39 @@ class MenuState extends Phaser.State {
         this.add.image(positionX, positionY, 'text-input');
         this.add.image(positionX - 70, positionY, 'gt');
         this.add.image(positionX + 270, positionY, 'cross');
-        this.$text = this.add.text(this.world.centerX, positionY + 10, '', {});
-        this.$text.anchor.setTo(0.5, 0);
+
+        this.$nick = this.add.text(this.world.centerX, positionY + 10, '', {});
+        this.$nick.anchor.setTo(0.5, 0);
 
         // TODO(piecioshka): remove before deploy
-        this.$text.setText('ninja');
-
-        this.input.keyboard.addCallbacks(this, null, null, (char, evt) => {
-            if (evt.key === 'Enter') {
-                this.play();
-                return;
-            }
-
-            let text = this.$text.text + char;
-            this.$text.setText(text);
-        });
+        this.$nick.setText('ninja');
     }
 
     setupPlayButton() {
-        this.add.button(this.getLeftPosition('button'), 350, 'button', this.play, this);
+        this.$playButton = this.add.button(this.getLeftPosition('button'), 350, 'button', this.play, this);
     }
 
     play() {
-        let nick = this.$text.text;
+        let nick = this.$nick.text;
         if (nick.length < PLAYER.NICK_LENGTH_LIMIT) {
             this.cb.speak(locale.NICK_TO_SMALL, 'error');
             return;
         }
         this.game.trigger(EVENTS.START_GAME);
+    }
+
+    // TODO(piecioshka): do zrobienia
+    handleEnterPlayButton(char, evt) {
+        let text = this.$nick.text + char;
+        this.$nick.setText(text);
+    }
+
+    update() {
+        let keyboard = this.input.keyboard;
+
+        if (keyboard.isDown(Phaser.Keyboard.ENTER)) {
+            this.$playButton.onInputUp.dispatch();
+        }
     }
 }
 
