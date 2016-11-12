@@ -7,7 +7,7 @@ const TAXI_CONSTANTS = {
         left: 10,
         right: 10
     }
-}
+};
 
 class Taxi extends Phaser.Sprite {
     cursors = null;
@@ -17,6 +17,13 @@ class Taxi extends Phaser.Sprite {
         game.add.existing(this);
 
         this.setupControls();
+        this.setupBody();
+    }
+
+    setupBody() {
+        this.game.physics.arcade.enable(this);
+        this.body.collideWorldBounds = true;
+        this.body.setSize(60, 64, 2, 0);
     }
 
     move(x, y) {
