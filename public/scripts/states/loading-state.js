@@ -19,6 +19,7 @@ class LoadingState extends Phaser.State {
         this.load.image('river', 'river.png');
         this.load.image('street', 'street.png');
         this.load.image('taxi', 'taxi.png');
+        this.load.image('passenger', 'passenger.png');
         this.load.image('button', 'button.png');
         this.load.image('logo', 'logo.png');
         this.load.image('text-input', 'text-input.png');
