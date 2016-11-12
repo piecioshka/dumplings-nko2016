@@ -29,21 +29,21 @@ class Taxi extends Phaser.Sprite {
     }
 
     updateMove() {
-        let cursors = this.cursors;
+        let { up, down, left, right } = this.cursors;
 
-        if (cursors.up.isDown) {
+        if (up.isDown) {
             this.y -= TAXI_CONSTANTS.MOVE_BY.up;
         }
 
-        if (cursors.down.isDown) {
+        if (down.isDown) {
             this.y += TAXI_CONSTANTS.MOVE_BY.down;
         }
 
-        if (cursors.left.isDown) {
+        if (left.isDown) {
             this.x -= TAXI_CONSTANTS.MOVE_BY.left;
         }
 
-        if (cursors.right.isDown) {
+        if (right.isDown) {
             this.x += TAXI_CONSTANTS.MOVE_BY.right;
         }
     }
