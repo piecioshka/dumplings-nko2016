@@ -3,6 +3,7 @@ let Taxi = require('../models/taxi');
 let Passenger = require('../models/passenger');
 let Spawner = require('../helpers/spawner');
 let SOCKET = require('../constants/socket');
+let CONSTANTS = require('../constants/game');
 
 class CityState extends Phaser.State {
     map = null;
@@ -38,8 +39,11 @@ class CityState extends Phaser.State {
 
     setupPlayer() {
         this.game.player = new Taxi(this.game, this.game.nick);
+        this.game.player.x = 27 * CONSTANTS.TILE_WIDTH;
+        this.game.player.y = 24 * CONSTANTS.TILE_HEIGHT;
+        this.game.player.moveLabel();
+
         this.game.socket.emit(SOCKET.SETUP_PLAYER, this.game.player.toJSON());
-        this.game.player.move(27, 24);
     }
 
     setupOpponents() {
@@ -49,10 +53,11 @@ class CityState extends Phaser.State {
                 return;
             }
 
-            debugger;
+            console.info('New opponent', opponent);
 
             let taxi = new Taxi(this.game, opponent.nick);
-            taxi.move(opponent.x, opponent.y);
+            taxi.x = opponent.x * CONSTANTS.TILE_WIDTH;
+            taxi.y = opponent.y * CONSTANTS.TILE_HEIGHT;
             taxi.id = opponent.id;
             this.opponents.set(taxi.id, taxi);
         });
@@ -62,10 +67,11 @@ class CityState extends Phaser.State {
                 return;
             }
 
-            debugger;
+            console.warn('Opponent "%s" moved to [%s, %s]', opponent.nick, opponent.x, opponent.y);
 
             let taxi = this.opponents.get(opponent.id);
-            taxi.move(opponent.x, opponent.y);
+            taxi.x = opponent.x * CONSTANTS.TILE_WIDTH;
+            taxi.y = opponent.y * CONSTANTS.TILE_HEIGHT;
         });
 
         this.game.socket.on(SOCKET.DESTROY_PLAYER, (opponent) => {
@@ -77,10 +83,13 @@ class CityState extends Phaser.State {
                 return;
             }
 
-            debugger;
+            console.error('Opponent is destroyed', opponent);
 
             let taxi = this.opponents.get(opponent.id);
-            taxi.destroy();
+            // TODO(piecioshka): serwer przesyła informację o wszystkich aktualnych graczach
+            if (taxi) {
+                taxi.destroy();
+            }
         });
     }
 
