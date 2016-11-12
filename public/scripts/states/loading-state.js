@@ -12,6 +12,7 @@ class LoadingState extends Phaser.State {
         this.load.image('city', 'city.png');
         this.load.image('river', 'river.png');
         this.load.image('street', 'street.png');
+        this.load.image('taxi', 'taxi.png');
 
         this.load.path = './assets/maps/';
 
