@@ -15,8 +15,17 @@ class CityState extends Phaser.State {
         this.setupPlayer();
         this.setupCamera();
         this.setupOpponents();
+        this.setupPassengers();
 
         this.cb = new CBRadio(this.game);
+    }
+
+    setupPassengers() {
+        this.passengerSpawner = new Spawner(this.game, Passenger);
+        this.passengerSpawner.setThreshold(200);
+        this.passengerSpawner.setMap(this.map);
+        this.passengerSpawner.spawn();
+
     }
 
     setupWorld() {
