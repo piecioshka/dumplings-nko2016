@@ -1,5 +1,3 @@
-'use strict';
-
 let SuperEventEmitter = require('super-event-emitter');
 let LoadingState = require('./states/loading-state');
 let CityState = require('./states/city-state');

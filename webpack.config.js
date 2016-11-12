@@ -18,7 +18,7 @@ module.exports = {
                 loader: 'script-loader'
             },
             {
-                test: /public\/(.*)\.js$/,
+                test: /\.js$/,
                 exclude: /node_modules/,
                 loader: 'babel-loader'
             }
