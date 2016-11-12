@@ -8,7 +8,7 @@ class GameStateManager {
         this.setupListeners();
 
         this.game.state.onStateChange.add((newState, oldState) => {
-            console.debug('Enter to new state: %s', newState);
+            // console.debug('Enter to new state: %s', newState);
         });
     }
 

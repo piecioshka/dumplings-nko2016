@@ -3,7 +3,6 @@ let Taxi = require('../models/taxi');
 let Passenger = require('../models/passenger');
 let Spawner = require('../helpers/spawner');
 let SOCKET = require('../constants/socket');
-let CONSTANTS = require('../constants/game');
 
 class CityState extends Phaser.State {
     map = null;
@@ -39,8 +38,6 @@ class CityState extends Phaser.State {
 
     setupPlayer() {
         this.game.player = new Taxi(this.game, this.game.nick);
-        this.game.player.x = 27 * CONSTANTS.TILE_WIDTH;
-        this.game.player.y = 24 * CONSTANTS.TILE_HEIGHT;
         this.game.player.moveLabel();
 
         this.game.socket.emit(SOCKET.SETUP_PLAYER, this.game.player.toJSON());
@@ -48,44 +45,54 @@ class CityState extends Phaser.State {
 
     setupOpponents() {
         this.opponents = new Map();
-        this.game.socket.on(SOCKET.SETUP_PLAYER, (opponent) => {
-            if (opponent.id === this.game.player.id) {
-                return;
-            }
+        this.game.socket.on(SOCKET.SETUP_PLAYER, (opponentJSON, playersJSON) => {
+            // console.debug('SOCKET.SETUP_PLAYER', opponentJSON, playersJSON);
 
-            console.info('New opponent', opponent);
+            playersJSON.forEach((player) => {
+                if (player.id === this.game.player.id) {
+                    return;
+                }
 
-            let taxi = new Taxi(this.game, opponent.nick);
-            taxi.x = opponent.x * CONSTANTS.TILE_WIDTH;
-            taxi.y = opponent.y * CONSTANTS.TILE_HEIGHT;
-            taxi.id = opponent.id;
-            this.opponents.set(taxi.id, taxi);
+                // console.info('New opponent', player);
+
+                let taxi = new Taxi(this.game, player.nick);
+                taxi.x = player.x;
+                taxi.y = player.y;
+                taxi.id = player.id;
+                this.opponents.set(taxi.id, taxi);
+                // debugger;
+            });
         });
 
-        this.game.socket.on(SOCKET.MOVE_PLAYER, (opponent) => {
-            if (opponent.id === this.game.player.id) {
+        this.game.socket.on(SOCKET.MOVE_PLAYER, (opponentJSON) => {
+            // console.debug('SOCKET.MOVE_PLAYER', opponentJSON);
+
+            if (opponentJSON.id === this.game.player.id) {
                 return;
             }
 
-            console.warn('Opponent "%s" moved to [%s, %s]', opponent.nick, opponent.x, opponent.y);
+            // console.warn('Opponent "%s" moved to [%s, %s]', opponent.nick, opponent.x, opponent.y);
 
-            let taxi = this.opponents.get(opponent.id);
-            taxi.x = opponent.x * CONSTANTS.TILE_WIDTH;
-            taxi.y = opponent.y * CONSTANTS.TILE_HEIGHT;
+            let taxi = this.opponents.get(opponentJSON.id);
+
+            taxi.x = opponentJSON.x;
+            taxi.y = opponentJSON.y;
         });
 
-        this.game.socket.on(SOCKET.DESTROY_PLAYER, (opponent) => {
-            if (!opponent) {
+        this.game.socket.on(SOCKET.DISCONNECT_PLAYER, (opponentJSON) => {
+            // console.debug('SOCKET.DISCONNECT_PLAYER', opponentJSON);
+
+            if (!opponentJSON) {
                 return;
             }
 
-            if (opponent.id === this.game.player.id) {
+            if (opponentJSON.id === this.game.player.id) {
                 return;
             }
 
-            console.error('Opponent is destroyed', opponent);
+            // console.error('Opponent is destroyed', opponent);
 
-            let taxi = this.opponents.get(opponent.id);
+            let taxi = this.opponents.get(opponentJSON.id);
             // TODO(piecioshka): serwer przesyła informację o wszystkich aktualnych graczach
             if (taxi) {
                 taxi.destroy();
@@ -106,6 +113,13 @@ class CityState extends Phaser.State {
     render() {
         this.game.debug.bodyInfo(this.game.player, 25, 25);
         this.game.debug.body(this.game.player);
+
+        let deltaX = this.game.player.deltaX;
+        let deltaY = this.game.player.deltaY;
+
+        if (deltaX || deltaY) {
+            this.game.socket.emit(SOCKET.MOVE_PLAYER, this.game.player.toJSON());
+        }
     }
 }
 
