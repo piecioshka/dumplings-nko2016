@@ -6,22 +6,37 @@ class CityState extends Phaser.State {
     layer = null;
 
     create() {
-        this.map = this.add.tilemap('city-warsaw');
-        this.map.addTilesetImage('city');
-        this.map.addTilesetImage('river');
-        this.map.addTilesetImage('street');
-
-        // this.map.setCollisionByExclusion([26, 27, 40, 41]);
-
-        this.layer = this.map.createLayer('City Warsaw');
-        this.layer.resizeWorld();
-
-        this.game.player = new Taxi(this.game);
-
-        this.game.player.move(27, 24);
-        this.camera.follow(this.game.player);
+        this.setupTilemap();
+        this.setupLayers();
+        this.setupPlayer();
+        this.setupCamera();
 
         this.cb = new CBRadio(this.game);
+    }
+
+    setupLayers() {
+        let layer = this.layer = this.map.createLayer('City Warsaw');
+        layer.resizeWorld();
+    }
+
+    setupTilemap() {
+        let map = this.map = this.add.tilemap('city-warsaw');
+        map.addTilesetImage('city');
+        map.addTilesetImage('river');
+        map.addTilesetImage('street');
+        // map.setCollisionByExclusion([26, 27, 40, 41]);
+    }
+
+    setupCamera() {
+        let player = this.player;
+        this.camera.follow(player);
+    }
+
+    setupPlayer() {
+        let player = this.game.player = new Taxi(this.game);
+        this.physics.enable(player, Phaser.Physics.ARCADE);
+        player.body.collideWorldBounds = true;
+        player.move(27, 24);
     }
 
     update() {
