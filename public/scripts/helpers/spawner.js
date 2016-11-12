@@ -3,7 +3,7 @@ let CONSTANTS = require('../constants/game');
 class Spawner {
     game = null;
     map = null;
-    tilesGroup = new Map();
+    tilesGroup = {};
     SpriteClass = null;
     pool = null;
     threshold = null;
@@ -11,11 +11,11 @@ class Spawner {
     constructor(game, SpriteClass) {
         this.game = game;
         this.SpriteClass = SpriteClass;
-        this.pool = new Set();
+        this.pool = this.game.add.group();
     }
 
     onDestroyHandler(event) {
-        this.replenish();
+        this.renew();
     }
 
     setThreshold(n) {
@@ -28,22 +28,26 @@ class Spawner {
     }
 
     spawn() {
-        if (this.pool.size >= this.threshold) {
+        if (this.pool.length >= this.threshold) {
             return;
         }
 
-        this.createBunch(this.threshold);
+        this.createGroup(this.threshold);
     }
 
     countSpritesToCreate() {
-        return (this.threshold - this.pool.size);
+        return (this.threshold - this.pool.length);
     }
 
-    createBunch(n) {
+    createGroup(n) {
         for (let i = n; i > 0; i--) {
             let sprite = this.create();
             this.pool.add(sprite);
         }
+    }
+
+    getSpriteGroup() {
+        return this.spriteGroup;
     }
 
     getTilesGroupByIndex() {
@@ -87,14 +91,14 @@ class Spawner {
     }
 
     destroy(sprite) {
-        this.pool.delete(sprite);
+        this.pool.remove(sprite, true);
         sprite.destroy();
     }
 
-    replenish() {
+    renew() {
         let count = this.countSpritesToCreate();
 
-        this.createBunch(count);
+        this.createGroup(count);
     }
 }
 
