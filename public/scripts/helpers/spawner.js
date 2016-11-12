@@ -1,27 +1,39 @@
-const SPAWNER_CONSTANTS = {
-    POOL_SIZE: 10,
-}
+let CONSTANTS = require('../constants/game');
 
 class Spawner {
     game = null;
-    Sprite = null;
+    map = null;
+    SpriteClass = null;
     pool = new Set();
+    threshold = null;
 
     constructor(game, SpriteClass) {
         this.game = game;
-        this.Sprite = SpriteClass;
+        this.SpriteClass = SpriteClass;
     }
 
     onDestroyHandler(event) {
         this.replenish();
     }
 
-    start() {
-        this.createBunch(SPAWNER_CONSTANTS.POOL_SIZE);
+    setThreshold(n) {
+        this.threshold = n;
+    }
+    
+    setMap(map) {
+        this.map = map;
+    }
+
+    spawn() {
+        if (this.pool.size >= this.threshold) {
+            return;
+        }
+
+        this.createBunch(this.threshold);
     }
 
     countSpritesToCreate() {
-        return (SPAWNER_CONSTANTS.POOL_SIZE - this.pool.size);
+        return (this.threshold - this.pool.size);
     }
 
     createBunch(n) {
@@ -31,9 +43,22 @@ class Spawner {
         }
     }
 
+    getRandomPosition() {
+        let rnd = this.game.rnd;
+        let x = rnd.integerInRange(0, this.map.width) * CONSTANTS.TILE_WIDTH;
+        let y = rnd.integerInRange(0, this.map.height) * CONSTANTS.TILE_HEIGHT;
+
+        return { x, y };
+    }
+
     create() {
-        let sprite = new this.Sprite(this.game);
+        let sprite = new this.SpriteClass(this.game);
+        let { x, y } = this.getRandomPosition();
+        sprite.x = x;
+        sprite.y = y;
+
         sprite.events.onDestroy.add((e) => this.onDestroyHandler(e)); 
+
         return sprite;
     }
 
