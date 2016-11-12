@@ -1,6 +1,17 @@
 class CityState extends Phaser.State {
-    constructor() {
-        super();
+    map = null;
+    layer = null;
+
+    create() {
+        this.map = this.add.tilemap('city-warsaw');
+        this.map.addTilesetImage('city');
+        this.map.addTilesetImage('river');
+        this.map.addTilesetImage('street');
+
+        this.map.setCollisionByExclusion([26, 27, 40, 41]);
+
+        this.layer = this.map.createLayer('City Warsaw');
+        this.layer.resizeWorld();
     }
 }
 
