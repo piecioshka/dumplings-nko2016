@@ -8,3 +8,10 @@ body {
     height: 600px;
     margin: 0 auto;
 }
+
+#github-ribbon {
+    position: absolute;
+    top: 0;
+    left: 0;
+    border: 0;
+}

@@ -2,6 +2,7 @@ let CBRadio = require('../models/cb');
 let Taxi = require('../models/taxi');
 let Passenger = require('../models/passenger');
 let Spawner = require('../helpers/spawner');
+let SOCKET = require('../constants/socket');
 
 class CityState extends Phaser.State {
     map = null;
@@ -34,8 +35,9 @@ class CityState extends Phaser.State {
     }
 
     setupPlayer() {
-        this.game.player = new Taxi(this.game);
+        this.game.player = new Taxi(this.game, this.game.nick);
         this.game.player.move(27, 24);
+        this.game.socket.emit(SOCKET.SETUP_PLAYER, this.game.player.toJSON());
     }
 
     update() {
@@ -49,7 +51,7 @@ class CityState extends Phaser.State {
     }
 
     render() {
-        // this.game.debug.bodyInfo(this.game.player, 25, 25);
+        this.game.debug.bodyInfo(this.game.player, 25, 25);
         this.game.debug.body(this.game.player);
     }
 }

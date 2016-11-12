@@ -1,3 +1,5 @@
+let uuid = require('uuid');
+
 let EVENTS = require('../constants/events');
 let PLAYER = require('../constants/player');
 let getCenterPositionX = require('../helpers/state-helper').getCenterPositionX;
@@ -33,7 +35,8 @@ class MenuState extends Phaser.State {
         this.$nick.anchor.setTo(0.5, 0);
 
         // TODO(piecioshka): remove before deploy
-        this.$nick.setText('ninja');
+        this.game.nick = 'ninja-' + this.rnd.between(1, 10000);
+        this.$nick.setText(this.game.nick);
     }
 
     setupPlayButton() {
