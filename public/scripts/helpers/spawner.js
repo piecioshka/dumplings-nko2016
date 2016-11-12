@@ -4,12 +4,13 @@ class Spawner {
     game = null;
     map = null;
     SpriteClass = null;
-    pool = new Set();
+    pool = null;
     threshold = null;
 
     constructor(game, SpriteClass) {
         this.game = game;
         this.SpriteClass = SpriteClass;
+        this.pool = new Set();
     }
 
     onDestroyHandler(event) {
@@ -19,7 +20,7 @@ class Spawner {
     setThreshold(n) {
         this.threshold = n;
     }
-    
+
     setMap(map) {
         this.map = map;
     }
@@ -57,7 +58,7 @@ class Spawner {
         sprite.x = x;
         sprite.y = y;
 
-        sprite.events.onDestroy.add((e) => this.onDestroyHandler(e)); 
+        sprite.events.onDestroy.add((e) => this.onDestroyHandler(e));
 
         return sprite;
     }
