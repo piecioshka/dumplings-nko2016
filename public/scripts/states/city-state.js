@@ -38,8 +38,8 @@ class CityState extends Phaser.State {
 
     setupPlayer() {
         this.game.player = new Taxi(this.game, this.game.nick);
-        this.game.player.move(27, 24);
         this.game.socket.emit(SOCKET.SETUP_PLAYER, this.game.player.toJSON());
+        this.game.player.move(27, 24);
     }
 
     setupOpponents() {
