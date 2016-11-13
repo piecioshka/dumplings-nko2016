@@ -11,6 +11,9 @@ class CityState extends Phaser.State {
     opponents = null;
 
     create() {
+        // this.game.renderer.clearBeforeRender = false;
+        // this.game.renderer.roundPixels = true;
+
         this.setupWorld();
         this.setupPlayer();
         this.setupCamera();

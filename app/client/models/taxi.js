@@ -13,6 +13,7 @@ function createSize(sprite, width, height) {
 
 class Taxi extends Phaser.Sprite {
     id = null;
+    keyboard = null;
     cursors = null;
     nick = null;
     $label = null;
@@ -77,8 +78,8 @@ class Taxi extends Phaser.Sprite {
     }
 
     setupControls() {
-        let keyboard = this.game.input.keyboard;
-        this.cursors = keyboard.createCursorKeys();
+        this.keyboard = this.game.input.keyboard;
+        this.cursors = this.keyboard.createCursorKeys();
     }
 
     resetVelocity() {
@@ -90,21 +91,26 @@ class Taxi extends Phaser.Sprite {
 
         let { up, down, left, right } = this.cursors;
         let velocity = this.body.velocity;
+        let speed = TAXI.TAXI_SPEED;
+
+        if (this.keyboard.isDown(Phaser.Keyboard.SPACEBAR)) {
+            speed *= TAXI.TAXI_BOOST
+        }
 
         if (up.isDown) {
-            velocity.y = -1 * TAXI.TAXI_SPEED;
+            velocity.y = -1 * speed;
         }
 
         if (down.isDown) {
-            velocity.y = TAXI.TAXI_SPEED;
+            velocity.y = speed;
         }
 
         if (left.isDown) {
-            velocity.x = -1 * TAXI.TAXI_SPEED;
+            velocity.x = -1 * speed;
         }
 
         if (right.isDown) {
-            velocity.x = TAXI.TAXI_SPEED;
+            velocity.x = speed;
         }
 
         this.moveLabel();
