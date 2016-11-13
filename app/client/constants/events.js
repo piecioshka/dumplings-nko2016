@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = {
     BOOTSTRAP_COMPLETED: 'bootstrap-completed',
     LOADING_COMPLETED: 'loading-completed',

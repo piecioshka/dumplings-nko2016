@@ -1,7 +1,7 @@
 let uuid = require('uuid');
 
-let GAME = require('../constants/game');
-let TAXI = require('../constants/taxi');
+const GAME = require('../constants/game');
+const TAXI = require('../constants/taxi');
 
 function createSize(sprite, width, height) {
     let spriteWidth = sprite.width;
@@ -17,6 +17,13 @@ class Taxi extends Phaser.Sprite {
     cursors = null;
     nick = null;
     $label = null;
+
+    // Liczba zdobytych punków
+    score = 0;
+    // Ile ma paliwa w baku?
+    fuel = TAXI.MAX_FUEL; // litrów
+    // Czy ma pasażera?
+    isEmpty = false;
 
     constructor(game, { nick, x, y, id }) {
         super(game, 0, 0, 'taxi', 1);
@@ -54,7 +61,7 @@ class Taxi extends Phaser.Sprite {
     }
 
     updateLabelContent() {
-        let label = this.nick + ' (' + this.x + ', ' + this.y + ')';
+        let label = `${this.nick} (score='${this.score}, fuel=${this.fuel}, isEmpty=${this.isEmpty})`;
         this.$label.setText(label);
     }
 
@@ -70,11 +77,11 @@ class Taxi extends Phaser.Sprite {
     }
 
     setHorizontalSize() {
-        this.body.setSize(...createSize(this, TAXI.TAXI_WIDTH, TAXI.TAXI_HEIGHT));
+        this.body.setSize(...createSize(this, TAXI.WIDTH, TAXI.HEIGHT));
     }
 
     setVerticalSize() {
-        this.body.setSize(...createSize(this, TAXI.TAXI_HEIGHT, TAXI.TAXI_WIDTH));
+        this.body.setSize(...createSize(this, TAXI.HEIGHT, TAXI.WIDTH));
     }
 
     setupControls() {
@@ -85,7 +92,7 @@ class Taxi extends Phaser.Sprite {
     updateVelocity() {
         let { up, down, left, right } = this.cursors;
         let velocity = this.body.velocity;
-        let speed = TAXI.TAXI_SPEED;
+        let speed = TAXI.SPEED;
 
         velocity.setTo(0, 0);
 
@@ -116,6 +123,22 @@ class Taxi extends Phaser.Sprite {
     destroy(...args) {
         super.destroy(...args);
         this.$label.destroy();
+    }
+
+    increaseScore() {
+        this.score++;
+    }
+
+    decreaseScore() {
+        this.score--;
+    }
+
+    increaseFuel() {
+        this.fuel++;
+    }
+
+    decreaseFuel() {
+        this.fuel--;
     }
 
     toJSON() {

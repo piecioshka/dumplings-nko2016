@@ -1,6 +1,9 @@
+'use strict';
+
 module.exports = {
-    TAXI_SPEED: 400,
-    TAXI_WIDTH: 55,
-    TAXI_HEIGHT: 40,
-    TAXI_BOOST: 400
+    SPEED: 400,
+    WIDTH: 55,
+    HEIGHT: 40,
+    BOOST: 400,
+    MAX_FUEL: 100
 };

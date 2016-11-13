@@ -1,6 +1,6 @@
 {
     "name": "dumplings-nko2016",
-    "version": "0.0.1",
+    "version": "0.1.0",
     "description": "Dumplings game for Node Knockout 2016",
     "main": "index.js",
     "license": "MIT",

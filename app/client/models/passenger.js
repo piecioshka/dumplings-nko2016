@@ -1,10 +1,9 @@
-const PASSENGER_CONSTANTS = {
-    POINTS: 100,
-    SATISFACTION_RATIO: 0.01
-};
+let interval = require('../helpers/state-helper').interval;
+
+const PASSENGER = require('../constants/passenger');
 
 class Passenger extends Phaser.Sprite {
-    satisfaction = 1; // range: [0, 1]
+    satisfaction = 100; // procent
     isPickedUp = false;
 
     constructor(game) {
@@ -12,29 +11,36 @@ class Passenger extends Phaser.Sprite {
         game.add.existing(this);
     }
 
-    decreaseHappyBy(value) {
+    decreaseSatisfactionBy(value) {
         if (this.satisfaction <= 0) {
             this.satisfaction = 0;
         }
 
-        this.satisfaction -= value; 
+        this.satisfaction -= value;
     }
 
     pickUp() {
         this.isPickedUp = true;
+        this.startDecreasingSatisfaction();
+        this.kill();
     }
 
     deliver() {
-        var total = (this.satisfaction * PASSENGER_CONSTANTS.POINTS);
-        this.kill();
-
+        this.isPickedUp = false;
+        this.destroy();
+        let total = (this.satisfaction * PASSENGER.POINTS);
+        debugger;
         return total;
     }
 
-    update() {
-        if (this.isPickedUp) {
-            this.decreaseHappyBy(PASSENGER_CONSTANTS.SATISFACTION_RATIO);
+    startDecreasingSatisfaction() {
+        if (!this.isPickedUp) {
+            throw new Error('passenger is not pick up');
         }
+
+        interval(this.game.state.getCurrentState(), () => {
+            this.decreaseSatisfactionBy(PASSENGER.SATISFACTION_RATIO);
+        }, PASSENGER.SATISFACTION_DECREASING_INTERVAL);
     }
 }
 

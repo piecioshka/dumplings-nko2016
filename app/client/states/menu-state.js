@@ -1,6 +1,6 @@
 let uuid = require('uuid');
 
-let EVENTS = require('../constants/events');
+const EVENTS = require('../constants/events');
 let PLAYER = require('../constants/player');
 let delay = require('../helpers/state-helper').delay;
 let displayVersion = require('../helpers/version-helper').displayVersion;

@@ -1,4 +1,4 @@
-let EVENTS = require('./constants/events');
+const EVENTS = require('./constants/events');
 
 class GameStateManager {
     game = null;

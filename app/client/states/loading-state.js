@@ -1,4 +1,4 @@
-let EVENTS = require('../constants/events');
+const EVENTS = require('../constants/events');
 let delay = require('../helpers/state-helper').delay;
 let locale = require('../../../public/locale/en.json');
 
