@@ -4,8 +4,9 @@ const STATE_EVENTS = require('../../constants/state-events');
 const PLAYER = require('../../constants/player');
 
 let delay = require('../helpers/state-helper').delay;
-let displayVersion = require('../helpers/version-helper').displayVersion;
-let locale = require('../../../public/locale/en.json');
+let displayGameVersion = require('../helpers/version-helper').displayGameVersion;
+let getVersion = require('../helpers/version-helper').getVersion;
+let locale = require('../locale/en.json');
 let CBRadio = require('../models/cb-radio');
 let NickInput = require('../dom/nick-input');
 
@@ -23,7 +24,8 @@ class MenuState extends Phaser.State {
         }, 1000);
 
         this.cb = new CBRadio(this.game);
-        displayVersion(this);
+        this.cb.speak(CBRadio.buildMSG(locale.CB.GAME_VERSION, { version: getVersion() }));
+        displayGameVersion(this);
     }
 
     setupBackground() {

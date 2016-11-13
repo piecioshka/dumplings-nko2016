@@ -1,7 +1,7 @@
 const STATE_EVENTS = require('../../constants/state-events');
 
 let delay = require('../helpers/state-helper').delay;
-let locale = require('../../../public/locale/en.json');
+let locale = require('../locale/en.json');
 
 class LoadingState extends Phaser.State {
     constructor(...args) {
@@ -16,7 +16,6 @@ class LoadingState extends Phaser.State {
         this.load.image('city', 'city.png');
         this.load.image('river', 'river.png');
         this.load.image('taxi', 'taxi.png');
-        this.load.image('passenger', 'passenger.png');
         this.load.image('button', 'button.png');
         this.load.image('taxi-clouds', 'taxi-clouds.png');
         this.load.image('taxi-huge-2-with-logo', 'taxi-huge-2-with-logo.png');
@@ -24,6 +23,12 @@ class LoadingState extends Phaser.State {
         this.load.image('cross', 'cross.png');
         this.load.image('flag', 'flag.png');
         this.load.spritesheet('street', 'street.png', 64, 64);
+
+        this.load.path = './assets/sprites/people/';
+
+        this.load.spritesheet('gruby', 'gruby.png', 64, 120);
+        this.load.spritesheet('polaczek', 'polaczek.png', 64, 120);
+        this.load.spritesheet('typeska', 'typeska.png', 64, 120);
 
         this.load.path = './assets/maps/';
 
