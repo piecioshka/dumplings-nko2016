@@ -2,10 +2,12 @@
 
 var SOCKET = require('../server/constants/socket');
 var PlayersCollection = require('./players-collection');
+var PassengersCollection = require('./passengers-collection');
 
 module.exports = function (server) {
     var io = require('socket.io')(server);
     var playerCollection = new PlayersCollection();
+    var passengersCollection = new PassengersCollection();
 
     io.on('connection', function (socket) {
         console.log('a user connected');
@@ -33,6 +35,12 @@ module.exports = function (server) {
             playerCollection.add(player);
             io.emit(SOCKET.SETUP_PLAYER, playerCollection.players);
             me = player;
+        });
+
+        socket.on(SOCKET.SETUP_PASSENGERS, function (passengers) {
+            console.log('setup passengers: message: ' + JSON.stringify(passengers));
+            passengersCollection.set(passengers);
+            io.emit(SOCKET.SETUP_PASSENGERS, playerCollection.passengers);
         });
 
         socket.on(SOCKET.MOVE_PLAYER, function (player) {
