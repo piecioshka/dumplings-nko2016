@@ -15,8 +15,11 @@ class MenuState extends Phaser.State {
     create() {
         this.setupBackground();
         this.setupLogo();
-        this.setupTextInput();
-        this.setupPlayButton();
+
+        delay(this, () => {
+            this.setupTextInput();
+            this.setupPlayButton();
+        }, 500);
 
         this.cb = new CBRadio(this.game);
         displayVersion(this);
@@ -47,6 +50,7 @@ class MenuState extends Phaser.State {
 
         this.DOMNickInput = new NickInput(randomNick);
         this.DOMNickInput.on(NickInput.EVENTS.VALUE, this.setPlayerNick, this);
+        this.DOMNickInput.on(NickInput.EVENTS.ENTER, this.play, this);
         this.DOMNickInput.setupListener();
         this.DOMNickInput.focus();
     }
@@ -75,11 +79,7 @@ class MenuState extends Phaser.State {
     }
 
     update() {
-        let keyboard = this.input.keyboard;
-
-        if (keyboard.isDown(Phaser.Keyboard.ENTER)) {
-            this.$playButton.onInputUp.dispatch();
-        }
+        // nothing here...
     }
 }
 

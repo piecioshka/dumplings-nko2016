@@ -8,6 +8,7 @@ function getTemplate(data = {}) {
     `;
 }
 
+const ENTER_KEY = 13;
 const NICK_INPUT_ID = 'nick-input';
 
 class DOMNickInput {
@@ -23,7 +24,12 @@ class DOMNickInput {
     setupListener() {
         let $wrapper = this._getWrapper();
         this.$input = $wrapper.querySelector('input');
-        this.$input.addEventListener('keydown', () => {
+        this.$input.addEventListener('keydown', (event) => {
+            if (event.keyCode === ENTER_KEY) {
+                this.trigger(DOMNickInput.EVENTS.ENTER);
+                return;
+            }
+
             this.trigger(DOMNickInput.EVENTS.VALUE, this.$input.value);
         });
     }
@@ -55,7 +61,8 @@ class DOMNickInput {
 }
 
 DOMNickInput.EVENTS = {
-    VALUE: 'nick-input: value'
+    VALUE: 'nick-input: value',
+    ENTER: 'nick-input: enter'
 };
 
 module.exports = DOMNickInput;
