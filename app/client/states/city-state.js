@@ -1,4 +1,4 @@
-let CBRadio = require('../models/cb');
+let CBRadio = require('../models/cb-radio');
 let Taxi = require('../models/taxi');
 let Passenger = require('../models/passenger');
 let Spawner = require('../helpers/spawner');
@@ -120,9 +120,22 @@ class CityState extends Phaser.State {
     }
 
     handleCollision() {
-        this.physics.arcade.collide(this.game.player, this.layer);
-        this.physics.arcade.collide(this.game.player, this.passengerSpawner.getSpriteGroup(), (player, item) => {
-            item.pickUp();
+        let player = this.game.player;
+        let passengers = this.passengerSpawner.getSpriteGroup();
+        let map = this.layer;
+
+        this.physics.arcade.collide(player, map);
+        this.physics.arcade.collide(passengers, map);
+        this.physics.arcade.collide(player, passengers, (taxi, passenger) => {
+            console.log('collision player  vs  passenger');
+
+            if (!taxi.isFree()) {
+                console.warn('Taxi has a passenger');
+                return;
+            }
+            passenger.pickUp();
+            taxi.setPassenger(passenger);
+            // this.game.socket.emit(SOCKET.DESTROY_PASSENGER, passenger);
         });
     }
 

@@ -52,6 +52,11 @@ class PassengersCollection {
         this.socket.on(SOCKET.SETUP_PLAYER, (player) => {
             this.generate();
         });
+
+        this.socket.on(SOCKET.DESTROY_PASSENGER, (passenger) => {
+            console.log('[PassengersCollection] destroy-passenger: ' + JSON.stringify(passenger));
+            // this.generate();
+        });
     }
 }
 

@@ -20,10 +20,8 @@ class Taxi extends Phaser.Sprite {
 
     // Liczba zdobytych punków
     score = 0;
-    // Ile ma paliwa w baku?
-    fuel = TAXI.MAX_FUEL; // litrów
-    // Czy ma pasażera?
-    isEmpty = false;
+    // Aktualny pasażer
+    passenger = null;
 
     constructor(game, { nick, x, y, id }) {
         super(game, 0, 0, 'taxi', 1);
@@ -52,16 +50,17 @@ class Taxi extends Phaser.Sprite {
 
     setupLabel(nick) {
         this.nick = nick;
-        this.$label = this.game.add.text(0, 0, '', {
+        let labelStyle = {
             fill: '#ffffff',
-            fontSize: 14
-        });
+            fontSize: 16
+        };
+        this.$label = this.game.add.text(0, 0, '', labelStyle);
         this.$label.anchor.setTo(0.5, 0);
         this.updateLabelContent();
     }
 
     updateLabelContent() {
-        let label = `${this.nick} (score=${this.score}, fuel=${this.fuel}, isEmpty=${this.isEmpty})`;
+        let label = `${this.nick} (score=${this.score})`;
         this.$label.setText(label);
     }
 
@@ -133,12 +132,16 @@ class Taxi extends Phaser.Sprite {
         this.score--;
     }
 
-    increaseFuel() {
-        this.fuel++;
+    setPassenger(passenger) {
+        this.passenger = passenger;
     }
 
-    decreaseFuel() {
-        this.fuel--;
+    deletePasenger() {
+        this.passenger = null;
+    }
+
+    isFree() {
+        return (this.passenger === null);
     }
 
     toJSON() {

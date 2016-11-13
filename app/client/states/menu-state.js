@@ -6,7 +6,7 @@ const PLAYER = require('../../constants/player');
 let delay = require('../helpers/state-helper').delay;
 let displayVersion = require('../helpers/version-helper').displayVersion;
 let locale = require('../../../public/locale/en.json');
-let CBRadio = require('../models/cb');
+let CBRadio = require('../models/cb-radio');
 let NickInput = require('../dom/nick-input');
 
 class MenuState extends Phaser.State {

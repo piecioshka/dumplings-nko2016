@@ -12,23 +12,24 @@ class Passenger extends Phaser.Sprite {
     }
 
     decreaseSatisfactionBy(value) {
-        console.log('decreaseSatisfactionBy');
         if (this.satisfaction <= 0) {
             this.satisfaction = 0;
         }
 
         this.satisfaction -= value;
+
+        console.log('Passenger#decreaseSatisfactionBy: %s%', this.satisfaction);
     }
 
     pickUp() {
-        console.log('pickUp');
+        console.log('Passenger#pickUp');
         this.isPickedUp = true;
         this.startDecreasingSatisfaction();
         this.kill();
     }
 
     deliver() {
-        console.log('deliver');
+        console.log('Passenger#deliver');
         this.isPickedUp = false;
         this.destroy();
         let total = (this.satisfaction * PASSENGER.POINTS);
@@ -37,9 +38,10 @@ class Passenger extends Phaser.Sprite {
     }
 
     startDecreasingSatisfaction() {
-        console.log('startDecreasingSatisfaction');
+        console.log('Passenger#startDecreasingSatisfaction');
+
         if (!this.isPickedUp) {
-            throw new Error('passenger is not pick up');
+            throw new Error('Passenger is not pick up');
         }
 
         interval(this.game.state.getCurrentState(), () => {

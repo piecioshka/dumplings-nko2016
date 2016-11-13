@@ -2,7 +2,6 @@ const GAME = require('../../constants/game');
 
 class Spawner {
     game = null;
-    tilesGroup = {};
     SpriteClass = null;
     spriteGroup = null;
 
@@ -13,17 +12,9 @@ class Spawner {
         this.spriteGroup.enableBody = true;
     }
 
-    onDestroyHandler(event) {
-        // Do something...
-    }
-
-    countSpritesToCreate() {
-        return (this.threshold - this.spriteGroup.length);
-    }
-
-    spawn(coordinates) {
-        for (let i = 0; i < coordinates.length; i++) {
-            let coords = coordinates[i];
+    spawn(coordinatesJSON) {
+        for (let i = 0; i < coordinatesJSON.length; i++) {
+            let coords = coordinatesJSON[i];
             let sprite = this.create(coords);
             this.spriteGroup.add(sprite);
         }
@@ -35,10 +26,10 @@ class Spawner {
 
     create(coordinates) {
         let sprite = new this.SpriteClass(this.game);
-  
+
+        sprite.immovable = true;
         sprite.x = coordinates.x * GAME.TILE_WIDTH;
         sprite.y = coordinates.y * GAME.TILE_HEIGHT;
-        sprite.events.onDestroy.add((e) => this.onDestroyHandler(e));
 
         return sprite;
     }

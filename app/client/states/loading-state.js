@@ -43,7 +43,7 @@ class LoadingState extends Phaser.State {
         this.setupBackground();
         this.setupWavingFlag();
         this.setupLoadingTitle();
-        this.setupSkipButton();
+        // this.setupSkipButton();
 
         this.setupPassenger();
         this.setupFirstCar();
@@ -178,7 +178,7 @@ class LoadingState extends Phaser.State {
     setupSkipButton() {
         let $skip = this.add.image(this.world.width - 35, 5, 'cross');
         $skip.scale.set(0.5, 0.5);
-        // TODO(piecioshka): dorobić pominjanie intra
+        // TODO(piecioshka): dorobić pomijanie intra
     }
 }
 
