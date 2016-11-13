@@ -1,11 +1,11 @@
 {
     "name": "dumplings-nko2016",
-    "version": "0.0.1",
+    "version": "0.1.0",
     "description": "Dumplings game for Node Knockout 2016",
     "main": "index.js",
     "license": "MIT",
     "scripts": {
-        "start": "node index.js",
+        "start": "sudo node --harmony index.js",
         "dev": "nodemon index.js",
         "clear": "rm -rf node_modules/ npm-debug.log public/dist/ typings/",
         "build": "webpack --progress --profile",
@@ -34,7 +34,7 @@
         "webpack": "^1.13.3"
     },
     "engines": {
-        "node": "4.4.5"
+        "node": "6.7.0"
     },
     "repository": {
         "type": "git",

@@ -1,6 +1,6 @@
 'use strict';
 
-let EVENTS = require('./constants/events');
+const EVENTS = require('./constants/events');
 let PlayersCollection = require('./collections/players-collection');
 let PassengersCollection = require('./collections/passengers-collection');
 let TilemapsCollection = require('./collections/tilemaps-collection');

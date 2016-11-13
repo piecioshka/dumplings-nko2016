@@ -1,6 +1,6 @@
 let SuperEventEmitter = require('super-event-emitter');
 let GameStateManager = require('./state-manager');
-let GAME = require('./constants/game');
+const GAME = require('./constants/game');
 
 let BootstrapState = require('./states/boostrap-state');
 let LoadingState = require('./states/loading-state');

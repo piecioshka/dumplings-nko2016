@@ -2,6 +2,10 @@
     "name": "dumplings-nko2016",
     "description": "Dumplings game for Node Knockout 2016",
     "repository": "https://github.com/rumblex/nodeknockout2016-dumplings",
-    "logo": "",
-    "keywords": []
+    "logo": "http://dumplings.2016.nodeknockout.com/assets/sprites/taxi.png",
+    "keywords": [
+        "taxi",
+        "poland",
+        "warsaw"
+    ]
 }

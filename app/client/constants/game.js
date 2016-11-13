@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = {
     GAME_WIDTH: 1024,
     GAME_HEIGHT: 600,

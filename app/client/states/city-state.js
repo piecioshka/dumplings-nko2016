@@ -11,6 +11,9 @@ class CityState extends Phaser.State {
     opponents = null;
 
     create() {
+        // this.game.renderer.clearBeforeRender = false;
+        // this.game.renderer.roundPixels = true;
+
         this.setupWorld();
         this.setupPlayer();
         this.setupCamera();
@@ -117,7 +120,7 @@ class CityState extends Phaser.State {
     handleCollision() {
         this.physics.arcade.collide(this.game.player, this.layer);
         this.physics.arcade.collide(this.game.player, this.passengerSpawner.getSpriteGroup(), (player, item) => {
-            item.destroy();
+            item.pickUp();
         });
     }
 
