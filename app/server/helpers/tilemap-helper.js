@@ -2,12 +2,12 @@ let tilemapJSON = require('./../../../public/assets/maps/warsaw.json');
 
 const STREET_LAYER_INDEX = 1;
 
-class TilemapsCollection {
+class TilemapHelper {
     getMap() {
         return tilemapJSON;
     }
 
-    getCoords(data, layerIndex) {
+    getCoordinates(data, layerIndex) {
         let coords = [];
 
         for (let i = 0; i < data.length; i++) {
@@ -25,10 +25,10 @@ class TilemapsCollection {
     getStreetLayerCoords() {
         let map = this.getMap();
         let data = map.layers[0].data;
-        let coords = this.getCoords(data, STREET_LAYER_INDEX);
+        let coords = this.getCoordinates(data, STREET_LAYER_INDEX);
 
         return coords;
     }
 }
 
-module.exports = TilemapsCollection;
+module.exports = TilemapHelper;
