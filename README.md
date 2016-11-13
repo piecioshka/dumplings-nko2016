@@ -6,10 +6,34 @@ Link do game: [dumplings.2016.nodeknockout.com](http://dumplings.2016.nodeknocko
 
 ## What we used?
 
-* Tiled - http://www.mapeditor.org/
+### Applications
+
+* [Tiled](http://www.mapeditor.org/)
     - map: 6400x6400 (px)
     - view port: 1024x640 (16 / 10 = 1.6)
     - tile: 64x64 (px)
+* [Adobe Photoshop](http://www.adobe.com/Photoshop‎) & [Adobe Illustrator](http://www.adobe.com/Photoshop‎)
+* [WebStorm](https://www.jetbrains.com/webstorm/) & [Sublime Text](https://www.sublimetext.com/)
+
+### JavaScript Libraries
+
+#### Client side
+
+* [Babel.js](https://babeljs.io/)
+* [Phaser](https://phaser.io/) - as main game engine
+* [super-event-emitter](https://github.com/piecioshka/super-event-emitter)
+* [uuid](https://www.npmjs.com/package/uuid)
+
+#### Server side
+
+* [Express](http://expressjs.com/)
+* [Socket.io](http://socket.io)
+
+### Tools
+
+* [yarn](https://github.com/yarnpkg/yarn)
+* [nodemon](https://github.com/remy/nodemon)
+* [Webpack](https://webpack.github.io/)
 
 ## Installation
 

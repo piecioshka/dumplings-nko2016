@@ -21,6 +21,7 @@ Your app should now be running on [localhost:5000](http://localhost:5000/).
 
 Log into <https://cloud.engineyard.com>. Navigate to your Team's Application, and click "Deploy".
 
+> EngineYard tool: https://github.com/engineyard/engineyard
 
 ## Supported Node.js versions
 
