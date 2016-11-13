@@ -14,11 +14,24 @@ body {
     position: relative;
 }
 
+#nko-vote-button,
+#twitter-share-button,
 #github-ribbon {
     position: absolute;
     top: 0;
     left: 0;
     border: 0;
+}
+
+#twitter-share-button,
+#nko-vote-button {
+    left: auto;
+    right: 0;
+}
+
+#twitter-share-button {
+    top: 70px;
+    right: 30px;
 }
 
 #nick-input {
