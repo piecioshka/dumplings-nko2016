@@ -29,8 +29,8 @@ class Taxi extends Phaser.Sprite {
         this.anchor.setTo(0.12, 0);
 
         this.id = id || uuid.v4();
-        this.x = x || 27 * GAME.TILE_WIDTH;
-        this.y = y || 24 * GAME.TILE_HEIGHT;
+        this.x = x || TAXI.STARTING_POINT.X * GAME.TILE_WIDTH;
+        this.y = y || TAXI.STARTING_POINT.Y * GAME.TILE_HEIGHT;
 
         this.setupLabel(nick);
         this.setupControls();

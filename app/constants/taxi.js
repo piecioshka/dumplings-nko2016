@@ -5,4 +5,8 @@ module.exports = {
     WIDTH: 55,
     HEIGHT: 40,
     BOOST: 400,
+    STARTING_POINT: {
+    	X: 27,
+    	Y: 24
+    }
 };
