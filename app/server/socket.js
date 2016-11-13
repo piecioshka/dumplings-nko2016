@@ -1,6 +1,6 @@
 'use strict';
 
-var SOCKET = require('../client/constants/socket');
+var SOCKET = require('../server/constants/socket');
 var PlayersCollection = require('./players-collection');
 
 module.exports = function (server) {

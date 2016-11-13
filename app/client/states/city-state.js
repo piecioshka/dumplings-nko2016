@@ -1,9 +1,9 @@
 let CBRadio = require('../models/cb');
 let Taxi = require('../models/taxi');
 let Passenger = require('../models/passenger');
-let Spawner = require('../helpers/spawner');
+let Spawner = require('../../server/spawner');
 let displayVersion = require('../helpers/version-helper').displayVersion;
-let SOCKET = require('../constants/socket');
+let SOCKET = require('../../server/constants/socket');
 
 class CityState extends Phaser.State {
     map = null;
