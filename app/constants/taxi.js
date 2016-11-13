@@ -6,7 +6,7 @@ module.exports = {
     HEIGHT: 40,
     BOOST: 400,
     STARTING_POINT: {
-    	X: 27,
-    	Y: 24
+        X: 41,
+        Y: 12
     }
 };

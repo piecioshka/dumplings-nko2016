@@ -7,6 +7,8 @@ class DestinationPoint extends Phaser.Sprite {
         this.setupBody();
 
         game.add.existing(this);
+
+        this.debug = true;
     }
 
     spawn(x, y) {
@@ -16,10 +18,6 @@ class DestinationPoint extends Phaser.Sprite {
 
     setupBody() {
         this.game.physics.arcade.enable(this);
-    }
-
-    destroy() {
-        this.destroy();
     }
 }
 

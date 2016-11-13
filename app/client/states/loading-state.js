@@ -13,7 +13,6 @@ class LoadingState extends Phaser.State {
 
         this.load.path = './assets/sprites/';
 
-        this.load.image('city', 'city.png');
         this.load.image('river', 'river.png');
         this.load.image('taxi', 'taxi.png');
         this.load.image('button', 'button.png');
@@ -29,6 +28,17 @@ class LoadingState extends Phaser.State {
         this.load.spritesheet('gruby', 'gruby.png', 64, 120);
         this.load.spritesheet('polaczek', 'polaczek.png', 64, 120);
         this.load.spritesheet('typeska', 'typeska.png', 64, 120);
+
+        this.load.path = './assets/sprites/city/';
+
+        this.load.spritesheet('grass', 'grass.png', 64, 64);
+        this.load.spritesheet('city-1', 'city-1.png', 64, 64);
+        this.load.spritesheet('city-2', 'city-2.png', 64, 64);
+        this.load.spritesheet('city-3', 'city-3.png', 64, 64);
+        this.load.spritesheet('city-4', 'city-4.png', 64, 64);
+        this.load.spritesheet('city-5', 'city-5.png', 64, 64);
+        this.load.spritesheet('city-6', 'city-6.png', 64, 64);
+        this.load.spritesheet('city-7', 'city-7.png', 64, 64);
 
         this.load.path = './assets/maps/';
 
@@ -161,12 +171,12 @@ class LoadingState extends Phaser.State {
         const SCALE_DURATION = 500;
         let positionX = 685;
         let positionY = this.game.height - 60;
-        let $babeczka = this.add.tileSprite(positionX, positionY, 127, 276, 'babeczka', 1);
+        let $babeczka = this.add.tileSprite(positionX, positionY, 114, 276, 'babeczka', 1);
 
         $babeczka.scale.set(scale, scale);
         $babeczka.anchor.set(0, 1);
 
-        $babeczka.animations.add('machanie', [0, 1, 2, 3]);
+        $babeczka.animations.add('machanie', [0, 1, 2]);
         $babeczka.animations.play('machanie', 10, true);
 
         this.add.tween($babeczka.scale).to({ x: 0.9, y: 0.9 }).start();

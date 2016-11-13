@@ -39,10 +39,19 @@ class CityState extends Phaser.State {
         this.physics.startSystem(Phaser.Physics.ARCADE);
 
         this.map = this.add.tilemap('city-warsaw');
-        this.map.addTilesetImage('street'); // 1
-        this.map.addTilesetImage('city');   // 2
-        this.map.addTilesetImage('river');  // 3
-        this.map.setCollision([13, 14]);
+        this.map.addTilesetImage('street');
+        this.map.addTilesetImage('city-1');
+        this.map.addTilesetImage('city-2');
+        this.map.addTilesetImage('city-3');
+        this.map.addTilesetImage('city-4');
+        this.map.addTilesetImage('city-5');
+        this.map.addTilesetImage('city-6');
+        this.map.addTilesetImage('city-7');
+        this.map.addTilesetImage('grass');
+        this.map.addTilesetImage('river');
+
+        // this.map.tilesets.map(map => map.firstgid)
+        this.map.setCollision([13, 14, 15, 24, 33, 42, 51, 60, 69]);
 
         this.layer = this.map.createLayer('City Warsaw');
         this.layer.resizeWorld();

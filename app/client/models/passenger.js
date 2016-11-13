@@ -18,10 +18,23 @@ class Passenger extends Phaser.Sprite {
 
     constructor(game) {
         super(game, 0, 0, getRandomPassengerTexture(), 1);
+
+        this.setupBody();
+        this.setupAnimation();
+
         game.add.existing(this);
 
+        this.debug = true;
+    }
+
+    setupAnimation() {
         this.animations.add('stand', [0, 1, 2]);
         this.animations.play('stand', 8, true);
+    }
+
+    setupBody() {
+        this.game.physics.arcade.enable(this);
+        this.body.collideWorldBounds = true;
     }
 
     decreaseSatisfactionBy(value) {
