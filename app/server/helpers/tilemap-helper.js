@@ -2,7 +2,7 @@ let tilemapJSON = require('./../../../public/assets/maps/warsaw.json');
 
 const STREET_LAYER_INDEX = 1;
 
-class TilemapsCollection {
+class TilemapHelper {
     getMap() {
         return tilemapJSON;
     }
@@ -31,4 +31,4 @@ class TilemapsCollection {
     }
 }
 
-module.exports = TilemapsCollection;
+module.exports = TilemapHelper;

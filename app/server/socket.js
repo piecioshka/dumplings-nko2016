@@ -2,7 +2,7 @@
 
 let PlayersCollection = require('./collections/players-collection');
 let PassengersCollection = require('./collections/passengers-collection');
-let TilemapsCollection = require('./collections/tilemaps-collection');
+let TilemapHelper = require('./helpers/tilemap-helper');
 
 module.exports = (server) => {
     let io = require('socket.io')(server);
@@ -11,8 +11,8 @@ module.exports = (server) => {
     io.on('connection', (socket) => {
         console.log('[SYSTEM] User connected');
 
-        let tilemapCollection = new TilemapsCollection();
-        let coords = tilemapCollection.getStreetLayerCoords();
+        let tilemapHelper = new TilemapHelper();
+        let coords = tilemapHelper.getStreetLayerCoords();
 
         let passengersCollection = new PassengersCollection(io, socket);
         passengersCollection.setCoordinates(coords);
