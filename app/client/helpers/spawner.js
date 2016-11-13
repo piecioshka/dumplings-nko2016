@@ -15,7 +15,7 @@ class Spawner {
     spawn(endPointsJSON) {
         for (let i = 0; i < endPointsJSON.length; i++) {
             let coords = endPointsJSON[i];
-            let sprite = this.create(coords.initial);
+            let sprite = this.create(coords);
             this.spriteGroup.add(sprite);
         }
     }
@@ -26,10 +26,12 @@ class Spawner {
 
     create(coordinates) {
         let sprite = new this.SpriteClass(this.game);
+        let { initial, destination } = coordinates;
 
         sprite.immovable = true;
-        sprite.x = coordinates.x * GAME.TILE_WIDTH;
-        sprite.y = coordinates.y * GAME.TILE_HEIGHT;
+        sprite.entryPoints = coordinates;
+        sprite.x = initial.x * GAME.TILE_WIDTH;
+        sprite.y = initial.y * GAME.TILE_HEIGHT;
 
         return sprite;
     }
