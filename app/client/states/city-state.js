@@ -54,7 +54,6 @@ class CityState extends Phaser.State {
     }
 
     setupPlayer() {
-        console.log('setupPlayer');
         this.game.player = new Taxi(this.game, { nick: this.game.nick });
         this.game.socket.emit(SOCKET.SETUP_PLAYER, this.game.player.toJSON());
     }
@@ -137,11 +136,15 @@ class CityState extends Phaser.State {
                 console.warn('Taxi has a passenger');
                 return;
             }
+
             taxi.setPassenger(passenger);
             taxi.setupDestinationPoint();
             passenger.pickUp();
 
+            // TODO(piecioshka): to musi działać, aby serwer wiedział o tym, że dany pasażer został zabrany
             // this.game.socket.emit(SOCKET.DESTROY_PASSENGER, passenger);
+
+            this.cb.speak(CBRadio.buildMSG(locale.CB.TAXI_PICKUP_PASSENGER, { nick: taxi.nick }));
         });
     }
 
