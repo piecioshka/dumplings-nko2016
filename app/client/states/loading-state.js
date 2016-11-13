@@ -148,7 +148,7 @@ class LoadingState extends Phaser.State {
 
     setupPassenger(scale = 0.6) {
         const DESTROY_DELAY = 3000;
-        let positionX = 670;
+        let positionX = 685;
         let positionY = this.game.height - 60;
         let $babeczka = this.add.tileSprite(positionX, positionY, 127, 276, 'babeczka', 1);
 
