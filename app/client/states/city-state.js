@@ -21,7 +21,6 @@ class CityState extends Phaser.State {
         this.setupPassengers();
 
         this.cb = new CBRadio(this.game);
-        this.cb.speak('ssdfsdf');
         displayVersion(this);
     }
 
@@ -41,7 +40,7 @@ class CityState extends Phaser.State {
         this.map.addTilesetImage('street'); // 1
         this.map.addTilesetImage('city');   // 2
         this.map.addTilesetImage('river');  // 3
-        this.map.setCollision([2, 3]);
+        this.map.setCollision([13, 14]);
 
         this.layer = this.map.createLayer('City Warsaw');
         this.layer.resizeWorld();

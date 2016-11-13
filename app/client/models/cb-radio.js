@@ -3,21 +3,20 @@ map.set('info', '#ffffff');
 map.set('warn', '#ffff00');
 map.set('error', '#ff0000');
 
+const GAME = require('../../constants/game');
+
 class CBRadio extends Phaser.Sprite {
     constructor(game) {
-        super(game, 0, 0, 'cb-radio');
+        super(game, 0, GAME.GAME_HEIGHT - 64, 'cb-radio');
         game.add.existing(this);
 
-        this.y = this._getPositionY();
-    }
-
-    _getPositionY() {
-        let sprite = this.game.cache.getImage('cb-radio');
-        return this.game.world.height - sprite.height;
+        this.speak('Hello there!');
     }
 
     speak(msg, type = 'info') {
-        this.game.add.text(250, this.y + 20, msg, { fill: map.get(type) });
+        let positionX = 230;
+        let positionY = GAME.GAME_HEIGHT - 50;
+        this.game.add.text(positionX, positionY, msg, { fill: map.get(type) });
     }
 }
 

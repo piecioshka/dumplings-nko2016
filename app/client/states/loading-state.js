@@ -15,7 +15,6 @@ class LoadingState extends Phaser.State {
 
         this.load.image('city', 'city.png');
         this.load.image('river', 'river.png');
-        this.load.image('street', 'street.png');
         this.load.image('taxi', 'taxi.png');
         this.load.image('passenger', 'passenger.png');
         this.load.image('button', 'button.png');
@@ -24,6 +23,7 @@ class LoadingState extends Phaser.State {
         this.load.image('cb-radio', 'cb-radio.png');
         this.load.image('cross', 'cross.png');
         this.load.image('flag', 'flag.png');
+        this.load.spritesheet('street', 'street.png', 64, 64);
 
         this.load.path = './assets/maps/';
 
