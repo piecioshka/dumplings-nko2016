@@ -37,12 +37,12 @@ module.exports = function (server) {
             me = player;
         });
 
-        socket.on(SOCKET.SETUP_PASSENGERS, function (coords) {
+        socket.on(SOCKET.SET_PASSENGERS, function (coords) {
             console.log('setup passengers: message: ' + JSON.stringify(coords));
             passengersCollection.setCoords(coords);
             passengersCollection.setThreshold(200);
             passengersCollection.generate();
-            io.emit(SOCKET.SETUP_PASSENGERS, playersCollection.passengers);
+            io.emit(SOCKET.SET_PASSENGERS, playersCollection.passengers);
         });
 
         socket.on(SOCKET.MOVE_PLAYER, function (player) {
