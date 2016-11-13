@@ -2,7 +2,7 @@
 
 module.exports = {
     entry: {
-        game: './public/scripts/main',
+        game: './app/client/main',
         phaser: './node_modules/phaser/build/phaser'
     },
 

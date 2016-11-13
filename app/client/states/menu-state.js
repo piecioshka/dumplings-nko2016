@@ -4,7 +4,7 @@ let EVENTS = require('../constants/events');
 let PLAYER = require('../constants/player');
 let getCenterPositionX = require('../helpers/state-helper').getCenterPositionX;
 let displayVersion = require('../helpers/version-helper').displayVersion;
-let locale = require('../../locale/en.json');
+let locale = require('../../../public/locale/en.json');
 let CBRadio = require('../models/cb');
 
 class MenuState extends Phaser.State {

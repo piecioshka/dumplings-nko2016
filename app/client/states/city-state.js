@@ -54,6 +54,7 @@ class CityState extends Phaser.State {
 
     setupOpponents() {
         this.opponents = new Map();
+
         this.game.socket.on(SOCKET.SETUP_PLAYER, (playersJSON) => {
             console.debug('SOCKET.SETUP_PLAYER', playersJSON);
 

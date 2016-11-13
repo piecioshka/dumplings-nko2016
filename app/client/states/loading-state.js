@@ -1,6 +1,6 @@
 let EVENTS = require('../constants/events');
 let getCenterPositionX = require('../helpers/state-helper').getCenterPositionX;
-let locale = require('../../locale/en.json');
+let locale = require('../../../public/locale/en.json');
 
 class LoadingState extends Phaser.State {
     getLeftPosition = getCenterPositionX.bind(this);
