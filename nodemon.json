@@ -1,7 +1,10 @@
 {
     "ignore": [
         ".idea",
-        "public",
-        "public"
+        "app/client",
+        "public/",
+        "docs/",
+        "ignore/",
+        "typings/"
     ]
 }
