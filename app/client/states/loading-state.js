@@ -25,6 +25,7 @@ class LoadingState extends Phaser.State {
         this.load.image('cb-radio', 'cb-radio.png');
         this.load.image('cross', 'cross.png');
         this.load.image('gt', 'gt.png');
+        this.load.image('flag', 'flag.png'); // 72x42
 
         this.load.path = './assets/maps/';
 
@@ -42,6 +43,7 @@ class LoadingState extends Phaser.State {
 
     create() {
         this.setupBackground();
+        this.setupWavingFlag();
         this.setupLoadingTitle();
 
         this.setupPassenger();
@@ -66,6 +68,27 @@ class LoadingState extends Phaser.State {
 
         let $background = this.add.image(0, 0, 'taxi-city-intro');
         $background.alpha = 0.9;
+    }
+
+    setupWavingFlag() {
+        var count = 0;
+        var length = 75 / 4;
+        var points = [];
+        var limit = 5;
+
+        for (var i = 0; i < limit; i++) {
+            points.push(new Phaser.Point(i * length, 0));
+        }
+
+        let $rope = this.add.rope(92, 27, 'flag', null, points);
+
+        $rope.updateAnimation = function () {
+            count += 0.1;
+
+            for (var i = 0; i < this.points.length; i++) {
+                this.points[i].y = Math.sin(i * 0.5 + count) * 4;
+            }
+        };
     }
 
     setupFirstCar(scale = 0.6) {
