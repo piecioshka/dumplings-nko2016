@@ -12,10 +12,10 @@ class Spawner {
         this.spriteGroup.enableBody = true;
     }
 
-    spawn(coordinatesJSON) {
-        for (let i = 0; i < coordinatesJSON.length; i++) {
-            let coords = coordinatesJSON[i];
-            let sprite = this.create(coords);
+    spawn(endPointsJSON) {
+        for (let i = 0; i < endPointsJSON.length; i++) {
+            let coords = endPointsJSON[i];
+            let sprite = this.create(coords.initial);
             this.spriteGroup.add(sprite);
         }
     }
