@@ -73,7 +73,7 @@ class Spawner {
         let streetTiles = this.tilesGroup['street'];
 
         let rnd = this.game.rnd;
-        let idx = rnd.integerInRange(0, streetTiles.length);
+        let idx = rnd.integerInRange(0, streetTiles.length - 1);
 
         return streetTiles[idx];
     }
