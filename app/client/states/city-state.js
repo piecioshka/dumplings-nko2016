@@ -2,7 +2,8 @@ let CBRadio = require('../models/cb-radio');
 let Taxi = require('../models/taxi');
 let Passenger = require('../models/passenger');
 let Spawner = require('../helpers/spawner');
-let displayVersion = require('../helpers/version-helper').displayVersion;
+let displayGameVersion = require('../helpers/version-helper').displayGameVersion;
+let locale = require('../locale/en.json');
 let SOCKET = require('../../constants/socket');
 
 class CityState extends Phaser.State {
@@ -21,7 +22,8 @@ class CityState extends Phaser.State {
         this.setupPassengers();
 
         this.cb = new CBRadio(this.game);
-        displayVersion(this);
+        this.cb.speak(CBRadio.buildMSG(locale.CB.HELLO, { nick: this.game.player.nick }));
+        displayGameVersion(this);
     }
 
     setupPassengers() {
@@ -77,6 +79,8 @@ class CityState extends Phaser.State {
                     id: player.id
                 });
                 this.opponents.set(taxi.id, taxi);
+
+                this.cb.speak(CBRadio.buildMSG(locale.CB.PLAYER_NEW, { nick: taxi.nick }));
             });
         });
 
@@ -110,6 +114,7 @@ class CityState extends Phaser.State {
 
             let taxi = this.opponents.get(opponentJSON.id);
             taxi.destroy();
+            this.cb.speak(CBRadio.buildMSG(locale.CB.PLAYER_DISCONNECTED, { nick: taxi.nick }));
         });
     }
 

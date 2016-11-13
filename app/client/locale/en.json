@@ -1,0 +1,11 @@
+{
+    "PLEASE_WAIT": "Please wait...",
+    "NICK_TO_SMALL": "Nick is too short!",
+
+    "CB": {
+        "GAME_VERSION": "Game version: <%= version %>",
+        "HELLO": "Hi! \"<%= nick %>\" How are you?",
+        "PLAYER_NEW": "New player \"<%= nick =>\" is connected!",
+        "PLAYER_DISCONNECTED": "Player \"<%= nick %>\" is disconnected."
+    }
+}
