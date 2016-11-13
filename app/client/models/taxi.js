@@ -86,27 +86,25 @@ class Taxi extends Phaser.Sprite {
     }
 
     updateVelocity() {
+        this.resetVelocity();
+
         let { up, down, left, right } = this.cursors;
         let velocity = this.body.velocity;
 
         if (up.isDown) {
             velocity.y = -1 * TAXI.TAXI_SPEED;
-            this.setVerticalSize();
         }
 
         if (down.isDown) {
             velocity.y = TAXI.TAXI_SPEED;
-            this.setVerticalSize();
         }
 
         if (left.isDown) {
             velocity.x = -1 * TAXI.TAXI_SPEED;
-            this.setHorizontalSize();
         }
 
         if (right.isDown) {
             velocity.x = TAXI.TAXI_SPEED;
-            this.setHorizontalSize();
         }
 
         this.moveLabel();
