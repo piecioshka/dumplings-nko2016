@@ -1,3 +1,5 @@
+let EVENTS = require('./../constants/events');
+
 function getRandomInteger(min, max) { 
     return (Math.floor(Math.random() * (max - min + 1)) + min);
 }
@@ -15,6 +17,16 @@ class PassengersCollection {
 
     setCoords(coords) {
         this.coords = new Set(coords);
+    }
+
+    addEventListeners(socket, io) {
+        socket.on(EVENTS.SET_PASSENGERS, (coords) => {
+            console.log('setup passengers: message: ' + JSON.stringify(coords));
+            this.setCoords(coords);
+            this.setThreshold(200);
+            this.generate();
+            io.emit(EVENTS.SET_PASSENGERS, this.passengers);
+        });
     }
 
     getRandomCoords() {
