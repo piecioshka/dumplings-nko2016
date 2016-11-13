@@ -19,7 +19,7 @@ class MenuState extends Phaser.State {
         delay(this, () => {
             this.setupTextInput();
             this.setupPlayButton();
-        }, 500);
+        }, 1000);
 
         this.cb = new CBRadio(this.game);
         displayVersion(this);
@@ -34,14 +34,12 @@ class MenuState extends Phaser.State {
 
         let positionX = -3500;
         let positionY = -700;
-        let $logo = this.add.image(positionX, positionY, 'taxi-big-1-with-logo');
+        let $logo = this.add.image(positionX, positionY, 'taxi-huge-2-with-logo');
 
-        let positionXTarget = -1350;
-        let positionYTarget = -700;
+        let positionXTarget = -1230;
+        let positionYTarget = -755;
 
-        delay(this, () => {
-            this.add.tween($logo).to({ x: positionXTarget, y: positionYTarget }, ANIMATION_DURATION).start();
-        }, 500);
+        this.add.tween($logo).to({ x: positionXTarget, y: positionYTarget }, ANIMATION_DURATION).start();
     }
 
     setupTextInput() {
@@ -61,7 +59,7 @@ class MenuState extends Phaser.State {
 
     setupPlayButton() {
         let positionX = this.world.centerX;
-        let positionY = 470;
+        let positionY = 370;
         this.$playButton = this.add.button(positionX, positionY, 'button', this.play, this);
         this.$playButton.anchor.set(0.5, 0.5);
         this.$playButton.scale.set(1.5, 1.5);

@@ -19,10 +19,10 @@ class LoadingState extends Phaser.State {
         this.load.image('passenger', 'passenger.png');
         this.load.image('button', 'button.png');
         this.load.image('taxi-clouds', 'taxi-clouds.png');
-        this.load.image('taxi-big-1-with-logo', 'taxi-big-1-with-logo.png');
+        this.load.image('taxi-huge-2-with-logo', 'taxi-huge-2-with-logo.png');
         this.load.image('cb-radio', 'cb-radio.png');
         this.load.image('cross', 'cross.png');
-        this.load.image('flag', 'flag.png'); // 72x42
+        this.load.image('flag', 'flag.png');
 
         this.load.path = './assets/maps/';
 
@@ -97,7 +97,10 @@ class LoadingState extends Phaser.State {
 
         let positionX = -500;
         let positionY = this.game.height - 40;
-        let $car = this.add.sprite(positionX, positionY, 'taxi-big-1');
+        let $car = this.add.tileSprite(positionX, positionY, 553, 250, 'taxi-huge-1');
+
+        $car.animations.add('fire', [0, 1]);
+        $car.animations.play('fire', 8, true);
 
         $car.scale.set(scale, scale);
         $car.anchor.set(0, 1);
@@ -123,10 +126,10 @@ class LoadingState extends Phaser.State {
 
         let positionX = -500;
         let positionY = this.game.height - 40;
-        let $car = this.add.tileSprite(positionX, positionY, 705, 214, 'taxi-big-2-fire');
+        let $car = this.add.tileSprite(positionX, positionY, 618, 250, 'taxi-huge-2-fire');
 
         $car.animations.add('fire', [0, 1]);
-        $car.animations.play('fire', 15, true);
+        $car.animations.play('fire', 8, true);
 
         $car.scale.set(scale, scale);
         $car.anchor.set(0, 1);
