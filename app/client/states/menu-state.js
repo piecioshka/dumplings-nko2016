@@ -3,17 +3,18 @@ let uuid = require('uuid');
 let EVENTS = require('../constants/events');
 let PLAYER = require('../constants/player');
 let getCenterPositionX = require('../helpers/state-helper').getCenterPositionX;
+let delay = require('../helpers/state-helper').delay;
 let displayVersion = require('../helpers/version-helper').displayVersion;
 let locale = require('../../../public/locale/en.json');
 let CBRadio = require('../models/cb');
 
 class MenuState extends Phaser.State {
-    getLeftPosition = getCenterPositionX.bind(this);
     $nick = null;
     $playButton = null;
 
     create() {
-        this.setupMainLogo();
+        this.setupBackground();
+        this.setupLogo();
         this.setupTextInput();
         this.setupPlayButton();
 
@@ -21,13 +22,28 @@ class MenuState extends Phaser.State {
         displayVersion(this);
     }
 
-    setupMainLogo() {
-        this.add.image(this.getLeftPosition('logo'), 10, 'logo');
+    setupBackground() {
+        this.add.image(0, 0, 'taxi-clouds');
+    }
+
+    setupLogo() {
+        const ANIMATION_DURATION = 500;
+
+        let positionX = -3500;
+        let positionY = -700;
+        let $logo = this.add.image(positionX, positionY, 'taxi-big-1-with-logo');
+
+        let positionXTarget = -1350;
+        let positionYTarget = -700;
+
+        delay(this, () => {
+            this.add.tween($logo).to({ x: positionXTarget, y: positionYTarget }, ANIMATION_DURATION).start();
+        }, 500);
     }
 
     setupTextInput() {
-        let positionX = this.getLeftPosition('text-input');
-        let positionY = 260;
+        let positionX = getCenterPositionX(this, 'text-input');
+        let positionY = 240;
 
         this.add.image(positionX, positionY, 'text-input');
         this.add.image(positionX - 70, positionY, 'gt');
@@ -42,7 +58,11 @@ class MenuState extends Phaser.State {
     }
 
     setupPlayButton() {
-        this.$playButton = this.add.button(this.getLeftPosition('button'), 350, 'button', this.play, this);
+        let positionX = this.world.centerX;
+        let positionY = 470;
+        this.$playButton = this.add.button(positionX, positionY, 'button', this.play, this);
+        this.$playButton.anchor.set(0.5, 0.5);
+        this.$playButton.scale.set(1.5, 1.5);
     }
 
     play() {
