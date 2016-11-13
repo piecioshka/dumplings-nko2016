@@ -1,29 +1,43 @@
+function getRandomInteger(min, max) { 
+    return (Math.floor(Math.random() * (max - min + 1)) + min);
+}
+
 class PassengersCollection {
     constructor() {
-        this.passengers = [];
+        this.passengers = new Set();
+        this.coords = null;
+        this.threshold = 10;   
     }
 
-    add(passenger) {
-        this.passengers.push(passenger);
+    setThreshold(threshold) {
+        this.threshold = threshold;
     }
 
-    set(passengers) {
-        this.passengers = passengers;
+    setCoords(coords) {
+        this.coords = new Set(coords);
     }
 
-    remove(passenger) {
-        var index = this.passengers.indexOf(passenger);
-        this.passenger.splice(index, 1);
+    getRandomCoords() {
+        let max = this.coords.size - 1;
+        let index = getRandomInteger(0, max);
+
+        return [...this.coords][index];
     }
 
-    update(passengerId, passenger) {
-        let playerIndex = -1;
-        this.passenger.forEach((passenger, index) => {
-            if (passenger.id === passengerId) {
-                passengerIndex = index;
-            }
-        });
-        this.passenger[passengerIndex] = passenger;
+    generate() {
+        if (this.passengers.size >= this.threshold) {
+            return;
+        }
+
+        // INFO(ksyrytczyk): Coords must be more than threshold due to unique Set values.
+        for (let i = this.countPassangersToCreate(); i > 0; i--) {
+            let coords = this.getRandomCoords();
+            this.passengers.add(coords);
+        }
+    }
+
+    countPassangersToCreate() {
+        return (this.threshold - this.passengers.size);
     }
 }
 
