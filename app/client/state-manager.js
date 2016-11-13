@@ -1,4 +1,4 @@
-const EVENTS = require('./constants/events');
+const STATE_EVENTS = require('../constants/state-events');
 
 class GameStateManager {
     game = null;
@@ -13,15 +13,15 @@ class GameStateManager {
     }
 
     setupListeners() {
-        this.game.on(EVENTS.BOOTSTRAP_COMPLETED, () => {
+        this.game.on(STATE_EVENTS.BOOTSTRAP_COMPLETED, () => {
             this.game.state.start('LoadingState');
         });
 
-        this.game.on(EVENTS.LOADING_COMPLETED, () => {
+        this.game.on(STATE_EVENTS.LOADING_COMPLETED, () => {
             this.game.state.start('MenuState');
         });
 
-        this.game.on(EVENTS.START_GAME, () => {
+        this.game.on(STATE_EVENTS.START_GAME, () => {
             this.game.state.start('CityState');
         });
     }

@@ -1,45 +1,25 @@
 'use strict';
 
-const EVENTS = require('./constants/events');
 let PlayersCollection = require('./collections/players-collection');
 let PassengersCollection = require('./collections/passengers-collection');
 let TilemapsCollection = require('./collections/tilemaps-collection');
 
 module.exports = (server) => {
     let io = require('socket.io')(server);
+    console.log('[SYSTEM] Setup Socket.io');
 
     io.on('connection', (socket) => {
-        console.log('a user connected');
+        console.log('[SYSTEM] User connected');
 
         let tilemapCollection = new TilemapsCollection();
-        let passengersCollection = new PassengersCollection();
-        let playersCollection = new PlayersCollection();
+        let coords = tilemapCollection.getStreetLayerCoords();
 
-        function removePlayer() {
-            let me = playersCollection.getPlayer();
-            playersCollection.removePlayer();
-            io.emit(EVENTS.DISCONNECT_PLAYER, me);
-        }
+        let passengersCollection = new PassengersCollection(io, socket);
+        passengersCollection.setCoordinates(coords);
+        passengersCollection.setThreshold(200);
+        passengersCollection.setupListeners();
 
-        function generatePassengers() {
-            let coords = tilemapCollection.getStreetLayerCoords();
-
-            passengersCollection.setCoordinates(coords);
-            passengersCollection.setThreshold(200);
-
-            return [...passengersCollection.generate()];
-        }
-
-        socket.on('error', () => {
-            console.log('Error occur');
-            removePlayer();
-        });
-
-        socket.on('disconnect', () => {
-            console.log('Player disconnected');
-            removePlayer();
-        });
-
-        io.emit(EVENTS.SET_PASSENGERS, generatePassengers());
+        let playersCollection = new PlayersCollection(io, socket);
+        playersCollection.setupListeners();
     });
 };

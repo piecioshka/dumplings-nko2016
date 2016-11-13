@@ -3,7 +3,7 @@ let Taxi = require('../models/taxi');
 let Passenger = require('../models/passenger');
 let Spawner = require('../helpers/spawner');
 let displayVersion = require('../helpers/version-helper').displayVersion;
-let SOCKET_EVENTS = require('../../server/constants/events');
+let SOCKET = require('../../constants/socket');
 
 class CityState extends Phaser.State {
     map = null;
@@ -28,7 +28,8 @@ class CityState extends Phaser.State {
     setupPassengers() {
         this.passengerSpawner = new Spawner(this.game, Passenger);
 
-        this.game.socket.on(SOCKET_EVENTS.SET_PASSENGERS, (coordinatesJSON) => {
+        this.game.socket.on(SOCKET.SET_PASSENGERS, (coordinatesJSON) => {
+            console.log('setupPassengers: SOCKET_EVENTS.SET_PASSENGERS', coordinatesJSON);
             this.passengerSpawner.spawn(coordinatesJSON);
         });
     }
@@ -52,14 +53,15 @@ class CityState extends Phaser.State {
     }
 
     setupPlayer() {
+        console.log('setupPlayer');
         this.game.player = new Taxi(this.game, { nick: this.game.nick });
-        this.game.socket.emit(SOCKET_EVENTS.SETUP_PLAYER, this.game.player.toJSON());
+        this.game.socket.emit(SOCKET.SETUP_PLAYER, this.game.player.toJSON());
     }
 
     setupOpponents() {
         this.opponents = new Map();
 
-        this.game.socket.on(SOCKET_EVENTS.SETUP_PLAYER, (playersJSON) => {
+        this.game.socket.on(SOCKET.SETUP_PLAYER, (playersJSON) => {
             console.debug('SOCKET_EVENTS.SETUP_PLAYER', playersJSON);
 
             playersJSON.forEach((player) => {
@@ -79,7 +81,7 @@ class CityState extends Phaser.State {
             });
         });
 
-        this.game.socket.on(SOCKET_EVENTS.MOVE_PLAYER, (opponentJSON) => {
+        this.game.socket.on(SOCKET.MOVE_PLAYER, (opponentJSON) => {
             // console.debug('SOCKET_EVENTS.MOVE_PLAYER', opponentJSON);
 
             if (opponentJSON.id === this.game.player.id) {
@@ -94,7 +96,7 @@ class CityState extends Phaser.State {
             taxi.moveLabel();
         });
 
-        this.game.socket.on(SOCKET_EVENTS.DISCONNECT_PLAYER, (opponentJSON) => {
+        this.game.socket.on(SOCKET.DISCONNECT_PLAYER, (opponentJSON) => {
             console.debug('SOCKET_EVENTS.DISCONNECT_PLAYER', opponentJSON);
 
             if (!opponentJSON) {
@@ -129,7 +131,7 @@ class CityState extends Phaser.State {
         this.game.debug.body(this.game.player);
 
         if (this.game.player.isMoved()) {
-            this.game.socket.emit(SOCKET_EVENTS.MOVE_PLAYER, this.game.player.toJSON());
+            this.game.socket.emit(SOCKET.MOVE_PLAYER, this.game.player.toJSON());
         }
 
         if (this.game.player.deltaX) {

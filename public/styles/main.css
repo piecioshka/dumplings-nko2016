@@ -23,6 +23,7 @@ body {
 
 #nick-input {
     border: 10px solid pink;
+    border-radius: 5px;
     width: 300px;
     height: 50px;
     position: absolute;
@@ -37,5 +38,4 @@ body {
     font-size: 40px;
     outline: none;
     text-align: center;
-    border-radius: 5px;
 }

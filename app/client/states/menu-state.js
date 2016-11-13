@@ -1,7 +1,8 @@
 let uuid = require('uuid');
 
-const EVENTS = require('../constants/events');
-let PLAYER = require('../constants/player');
+const STATE_EVENTS = require('../../constants/state-events');
+const PLAYER = require('../../constants/player');
+
 let delay = require('../helpers/state-helper').delay;
 let displayVersion = require('../helpers/version-helper').displayVersion;
 let locale = require('../../../public/locale/en.json');
@@ -73,7 +74,7 @@ class MenuState extends Phaser.State {
         }
 
         this.DOMNickInput.destroy();
-        this.game.trigger(EVENTS.START_GAME);
+        this.game.trigger(STATE_EVENTS.START_GAME);
     }
 
     update() {

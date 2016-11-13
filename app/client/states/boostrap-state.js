@@ -1,4 +1,4 @@
-const EVENTS = require('../constants/events');
+const STATE_EVENTS = require('../../constants/state-events');
 
 class BootstrapState extends Phaser.State {
     preload() {
@@ -11,7 +11,7 @@ class BootstrapState extends Phaser.State {
     }
 
     create() {
-        this.game.trigger(EVENTS.BOOTSTRAP_COMPLETED);
+        this.game.trigger(STATE_EVENTS.BOOTSTRAP_COMPLETED);
     }
 }
 

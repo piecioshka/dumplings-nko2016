@@ -1,14 +1,16 @@
-const EVENTS = require('./../constants/events');
+const SOCKET = require('../../constants/socket');
 
-function getRandomInteger(min, max) { 
+function getRandomInteger(min, max) {
     return (Math.floor(Math.random() * (max - min + 1)) + min);
 }
 
 class PassengersCollection {
-    constructor() {
+    constructor(io, socket) {
+        this.io = io;
+        this.socket = socket;
         this.passengers = new Set();
         this.coordinates = null;
-        this.threshold = 10;   
+        this.threshold = 10;
     }
 
     setThreshold(threshold) {
@@ -27,21 +29,29 @@ class PassengersCollection {
     }
 
     generate() {
+        console.log('PassengersCollection#generate');
+
         if (this.passengers.size >= this.threshold) {
             return;
         }
 
-        // INFO(ksyrytczyk): Coords must be more than threshold due to unique Set values.
-        for (let i = this.countPassengersToCreate(); i > 0; i--) {
-            let coords = this.getRandomCoordinates();
-            this.passengers.add(coords);
+        let count = this.countPassengersToCreate();
+
+        for (let i = 0; i < count; i++) {
+            this.passengers.add(this.getRandomCoordinates());
         }
 
-        return this.passengers;
+        this.io.emit(SOCKET.SET_PASSENGERS, [...this.passengers]);
     }
 
     countPassengersToCreate() {
         return (this.threshold - this.passengers.size);
+    }
+
+    setupListeners() {
+        this.socket.on(SOCKET.SETUP_PLAYER, (player) => {
+            this.generate();
+        });
     }
 }
 

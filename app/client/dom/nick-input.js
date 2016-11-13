@@ -1,6 +1,6 @@
 let SuperEventEmitter = require('super-event-emitter');
 
-let PLAYER = require('../constants/player');
+let PLAYER = require('../../constants/player');
 
 function getTemplate(data = {}) {
     return `

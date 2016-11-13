@@ -1,7 +1,7 @@
 let uuid = require('uuid');
 
-const GAME = require('../constants/game');
-const TAXI = require('../constants/taxi');
+const GAME = require('../../constants/game');
+const TAXI = require('../../constants/taxi');
 
 function createSize(sprite, width, height) {
     let spriteWidth = sprite.width;
@@ -61,7 +61,7 @@ class Taxi extends Phaser.Sprite {
     }
 
     updateLabelContent() {
-        let label = `${this.nick} (score='${this.score}, fuel=${this.fuel}, isEmpty=${this.isEmpty})`;
+        let label = `${this.nick} (score=${this.score}, fuel=${this.fuel}, isEmpty=${this.isEmpty})`;
         this.$label.setText(label);
     }
 

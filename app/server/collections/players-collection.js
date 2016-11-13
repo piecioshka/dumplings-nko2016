@@ -1,8 +1,9 @@
-const EVENTS = require('./../constants/events');
+const SOCKET = require('./../../constants/socket');
 
 class PlayersCollection {
-    constructor() {
-        this.me = null;
+    constructor(io, socket) {
+        this.io = io;
+        this.socket = socket;
         this.players = [];
     }
 
@@ -13,9 +14,10 @@ class PlayersCollection {
     remove(player) {
         var index = this.players.indexOf(player);
         this.players.splice(index, 1);
+        this.io.emit(SOCKET.DISCONNECT_PLAYER, player);
     }
 
-    update(playerId, player) {
+    updateByID(playerId, player) {
         let playerIndex = -1;
         this.players.forEach((player, index) => {
             if (player.id === playerId) {
@@ -25,27 +27,32 @@ class PlayersCollection {
         this.players[playerIndex] = player;
     }
 
-    getPlayer() {
-        return this.me;
-    }
+    setupListeners() {
+        let me = null;
 
-    removePlayer() {
-        this.remove(this.me);
-        this.me = null;
-    }
-
-    addEventListeners(socket, io) {
-        socket.on(EVENTS.SETUP_PLAYER, (player) => {
-            console.log('setup player: message: ' + JSON.stringify(player));
+        this.socket.on(SOCKET.SETUP_PLAYER, (player) => {
+            console.log('[PlayersCollection] setup-player: message: ' + JSON.stringify(player));
             this.add(player);
-            this.me = player;
-            io.emit(EVENTS.SETUP_PLAYER, this.players);
+            me = player;
+            this.io.emit(SOCKET.SETUP_PLAYER, this.players);
         });
 
-        socket.on(EVENTS.MOVE_PLAYER, (player) => {
-            // console.log('move player: message: ' + JSON.stringify(player));
-            this.update(player.id, player);
-            io.emit(EVENTS.MOVE_PLAYER, player);
+        this.socket.on(SOCKET.MOVE_PLAYER, (player) => {
+            // console.log('[PlayersCollection] move-player: message: ' + JSON.stringify(player));
+            this.updateByID(player.id, player);
+            this.io.emit(SOCKET.MOVE_PLAYER, player);
+        });
+
+        this.socket.on('error', () => {
+            console.log('[PlayersCollection] client-error: ' + JSON.stringify(me));
+            this.remove(me);
+            me = null;
+        });
+
+        this.socket.on('disconnect', () => {
+            console.log('[PlayersCollection] client-disconnect: ' + JSON.stringify(me));
+            this.remove(me);
+            me = null;
         });
     }
 }

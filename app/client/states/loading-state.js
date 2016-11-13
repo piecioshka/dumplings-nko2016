@@ -1,4 +1,5 @@
-const EVENTS = require('../constants/events');
+const STATE_EVENTS = require('../../constants/state-events');
+
 let delay = require('../helpers/state-helper').delay;
 let locale = require('../../../public/locale/en.json');
 
@@ -49,7 +50,7 @@ class LoadingState extends Phaser.State {
         this.setupSecondCar();
 
         setTimeout(() => {
-            this.game.trigger(EVENTS.LOADING_COMPLETED);
+            this.game.trigger(STATE_EVENTS.LOADING_COMPLETED);
         }, 5000);
     }
 

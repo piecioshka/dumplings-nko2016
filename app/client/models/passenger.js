@@ -1,6 +1,6 @@
 let interval = require('../helpers/state-helper').interval;
 
-const PASSENGER = require('../constants/passenger');
+const PASSENGER = require('../../constants/passenger');
 
 class Passenger extends Phaser.Sprite {
     satisfaction = 100; // procent
@@ -12,6 +12,7 @@ class Passenger extends Phaser.Sprite {
     }
 
     decreaseSatisfactionBy(value) {
+        console.log('decreaseSatisfactionBy');
         if (this.satisfaction <= 0) {
             this.satisfaction = 0;
         }
@@ -20,12 +21,14 @@ class Passenger extends Phaser.Sprite {
     }
 
     pickUp() {
+        console.log('pickUp');
         this.isPickedUp = true;
         this.startDecreasingSatisfaction();
         this.kill();
     }
 
     deliver() {
+        console.log('deliver');
         this.isPickedUp = false;
         this.destroy();
         let total = (this.satisfaction * PASSENGER.POINTS);
@@ -34,6 +37,7 @@ class Passenger extends Phaser.Sprite {
     }
 
     startDecreasingSatisfaction() {
+        console.log('startDecreasingSatisfaction');
         if (!this.isPickedUp) {
             throw new Error('passenger is not pick up');
         }
