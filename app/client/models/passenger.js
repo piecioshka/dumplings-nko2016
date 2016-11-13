@@ -1,6 +1,15 @@
 let interval = require('../helpers/state-helper').interval;
 
 const PASSENGER = require('../../constants/passenger');
+const AVAILABLE_PASSENGERS = ['gruby', 'polaczek', 'typeska'];
+
+function getRandomInteger(min, max) {
+    return (Math.floor(Math.random() * (max - min + 1)) + min);
+}
+
+function getRandomPassengerTexture() {
+    return AVAILABLE_PASSENGERS[getRandomInteger(0, 2)];
+}
 
 class Passenger extends Phaser.Sprite {
     satisfaction = 100; // procent
@@ -8,8 +17,11 @@ class Passenger extends Phaser.Sprite {
     isPickedUp = false;
 
     constructor(game) {
-        super(game, 0, 0, 'passenger', 1);
+        super(game, 0, 0, getRandomPassengerTexture(), 1);
         game.add.existing(this);
+
+        this.animations.add('stand', [0, 1, 2]);
+        this.animations.play('stand', 8, true);
     }
 
     decreaseSatisfactionBy(value) {
