@@ -28,6 +28,30 @@ class PassengersCollection {
         return [...this.coordinates][index];
     }
 
+    getDestinationPointByDistance(initialCoords, minDistance) {
+        let coordsArr = [...this.coordinates];
+
+        for (let i = 0; i < coordsArr.length; i++) {
+            let proposalCoords = coordsArr[i];
+            let diffX = (initialCoords.x - proposalCoords.x);
+            let diffY = (initialCoords.y - proposalCoords.y);
+            let distance = Math.sqrt(Math.pow(diffX, 2) + Math.pow(diffY, 2));
+
+            if (distance >= minDistance) {
+                return coordsArr[i];
+            }
+        }
+
+        return coordsArr[0];
+    }
+
+    getRandomEntryPoints() {
+        let initial = this.getRandomCoordinates();
+        let destination = this.getDestinationPointByDistance(initial, 30);
+
+        return { initial, destination };
+    }
+
     generate() {
         console.log('PassengersCollection#generate');
 
@@ -38,7 +62,7 @@ class PassengersCollection {
         let count = this.countPassengersToCreate();
 
         for (let i = 0; i < count; i++) {
-            this.passengers.add(this.getRandomCoordinates());
+            this.passengers.add(entryPoints);
         }
 
         this.io.emit(SOCKET.SET_PASSENGERS, [...this.passengers]);
