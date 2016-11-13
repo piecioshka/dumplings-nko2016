@@ -4,6 +4,7 @@ const PASSENGER = require('../../constants/passenger');
 
 class Passenger extends Phaser.Sprite {
     satisfaction = 100; // procent
+    entryPoints = null;
     isPickedUp = false;
 
     constructor(game) {
@@ -25,7 +26,12 @@ class Passenger extends Phaser.Sprite {
         console.log('Passenger#pickUp');
         this.isPickedUp = true;
         this.startDecreasingSatisfaction();
+        this.putDestinationPoint();
         this.kill();
+    }
+
+    putDestinationPoint() {
+        let { x, y } = this.entryPoints.destination;;
     }
 
     deliver() {
