@@ -24,7 +24,7 @@ class DOMNickInput {
     setupListener() {
         let $wrapper = this._getWrapper();
         this.$input = $wrapper.querySelector('input');
-        this.$input.addEventListener('keydown', (event) => {
+        this.$input.addEventListener('keyup', (event) => {
             if (event.keyCode === ENTER_KEY) {
                 this.trigger(DOMNickInput.EVENTS.ENTER);
                 return;
