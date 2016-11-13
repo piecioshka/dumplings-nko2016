@@ -82,20 +82,12 @@ class Taxi extends Phaser.Sprite {
         this.cursors = this.keyboard.createCursorKeys();
     }
 
-    resetVelocity() {
-        this.body.velocity.setTo(0, 0);
-    }
-
     updateVelocity() {
-        this.resetVelocity();
-
         let { up, down, left, right } = this.cursors;
         let velocity = this.body.velocity;
         let speed = TAXI.TAXI_SPEED;
 
-        if (this.keyboard.isDown(Phaser.Keyboard.SPACEBAR)) {
-            speed *= TAXI.TAXI_BOOST
-        }
+        velocity.setTo(0, 0);
 
         if (up.isDown) {
             velocity.y = -1 * speed;
