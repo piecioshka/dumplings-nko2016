@@ -1,3 +1,5 @@
+let EVENTS = require('./../constants/events');
+
 function getRandomInteger(min, max) { 
     return (Math.floor(Math.random() * (max - min + 1)) + min);
 }
@@ -17,6 +19,16 @@ class PassengersCollection {
         this.coords = new Set(coords);
     }
 
+    addEventListeners(socket, io) {
+        socket.on(EVENTS.SET_PASSENGERS, (coords) => {
+            console.log('setup passengers: message: ' + JSON.stringify(coords));
+            this.setCoords(coords);
+            this.setThreshold(200);
+            this.generate();
+            io.emit(EVENTS.SET_PASSENGERS, this.passengers);
+        });
+    }
+
     getRandomCoords() {
         let max = this.coords.size - 1;
         let index = getRandomInteger(0, max);
@@ -30,13 +42,13 @@ class PassengersCollection {
         }
 
         // INFO(ksyrytczyk): Coords must be more than threshold due to unique Set values.
-        for (let i = this.countPassangersToCreate(); i > 0; i--) {
+        for (let i = this.countPassengersToCreate(); i > 0; i--) {
             let coords = this.getRandomCoords();
             this.passengers.add(coords);
         }
     }
 
-    countPassangersToCreate() {
+    countPassengersToCreate() {
         return (this.threshold - this.passengers.size);
     }
 }
