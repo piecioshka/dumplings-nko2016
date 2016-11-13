@@ -2,15 +2,15 @@ let uuid = require('uuid');
 
 let EVENTS = require('../constants/events');
 let PLAYER = require('../constants/player');
-let getCenterPositionX = require('../helpers/state-helper').getCenterPositionX;
 let delay = require('../helpers/state-helper').delay;
 let displayVersion = require('../helpers/version-helper').displayVersion;
 let locale = require('../../../public/locale/en.json');
 let CBRadio = require('../models/cb');
+let NickInput = require('../dom/nick-input');
 
 class MenuState extends Phaser.State {
-    $nick = null;
     $playButton = null;
+    DOMNickInput = null;
 
     create() {
         this.setupBackground();
@@ -42,19 +42,17 @@ class MenuState extends Phaser.State {
     }
 
     setupTextInput() {
-        let positionX = getCenterPositionX(this, 'text-input');
-        let positionY = 240;
+        let randomNick = 'ninja-' + this.rnd.between(1, 10000);
+        this.setPlayerNick(randomNick);
 
-        this.add.image(positionX, positionY, 'text-input');
-        this.add.image(positionX - 70, positionY, 'gt');
-        this.add.image(positionX + 270, positionY, 'cross');
+        this.DOMNickInput = new NickInput(randomNick);
+        this.DOMNickInput.on(NickInput.EVENTS.VALUE, this.setPlayerNick, this);
+        this.DOMNickInput.setupListener();
+        this.DOMNickInput.focus();
+    }
 
-        this.$nick = this.add.text(this.world.centerX, positionY + 10, '', {});
-        this.$nick.anchor.setTo(0.5, 0);
-
-        // TODO(piecioshka): remove before deploy
-        this.game.nick = 'ninja-' + this.rnd.between(1, 10000);
-        this.$nick.setText(this.game.nick);
+    setPlayerNick(value) {
+        this.game.nick = value;
     }
 
     setupPlayButton() {
@@ -66,18 +64,14 @@ class MenuState extends Phaser.State {
     }
 
     play() {
-        let nick = this.$nick.text;
-        if (nick.length < PLAYER.NICK_LENGTH_LIMIT) {
-            this.cb.speak(locale.NICK_TO_SMALL, 'error');
+        if (!this.DOMNickInput.isValid()) {
+            let msg = `${locale.NICK_TO_SMALL} (${PLAYER.NICK_LENGTH_MIN_LIMIT } - ${PLAYER.NICK_LENGTH_MAX_LIMIT})`;
+            this.cb.speak(msg, 'error');
             return;
         }
-        this.game.trigger(EVENTS.START_GAME);
-    }
 
-    // TODO(piecioshka): do zrobienia
-    handleEnterPlayButton(char, evt) {
-        let text = this.$nick.text + char;
-        this.$nick.setText(text);
+        this.DOMNickInput.destroy();
+        this.game.trigger(EVENTS.START_GAME);
     }
 
     update() {

@@ -12,6 +12,8 @@ class Game extends Phaser.Game {
         super(...args);
         SuperEventEmitter.mixin(this);
         this.socket = io();
+        this.player = null;
+        this.nick = null;
     }
 }
 
