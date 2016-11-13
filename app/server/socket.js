@@ -6,7 +6,7 @@ var PassengersCollection = require('./passengers-collection');
 
 module.exports = function (server) {
     var io = require('socket.io')(server);
-    var playerCollection = new PlayersCollection();
+    var playersCollection = new PlayersCollection();
     var passengersCollection = new PassengersCollection();
 
     io.on('connection', function (socket) {
@@ -16,7 +16,7 @@ module.exports = function (server) {
 
         function removePlayer() {
             io.emit(SOCKET.DISCONNECT_PLAYER, me);
-            playerCollection.remove(me);
+            playersCollection.remove(me);
             me = null;
         }
 
@@ -32,21 +32,21 @@ module.exports = function (server) {
 
         socket.on(SOCKET.SETUP_PLAYER, function (player) {
             console.log('setup player: message: ' + JSON.stringify(player));
-            playerCollection.add(player);
-            io.emit(SOCKET.SETUP_PLAYER, playerCollection.players);
+            playersCollection.add(player);
+            io.emit(SOCKET.SETUP_PLAYER, playersCollection.players);
             me = player;
         });
 
         socket.on(SOCKET.SETUP_PASSENGERS, function (passengers) {
             console.log('setup passengers: message: ' + JSON.stringify(passengers));
             passengersCollection.set(passengers);
-            io.emit(SOCKET.SETUP_PASSENGERS, playerCollection.passengers);
+            io.emit(SOCKET.SETUP_PASSENGERS, playersCollection.passengers);
         });
 
         socket.on(SOCKET.MOVE_PLAYER, function (player) {
             // console.log('move player: message: ' + JSON.stringify(player));
             io.emit(SOCKET.MOVE_PLAYER, player);
-            playerCollection.update(player.id, player);
+            playersCollection.update(player.id, player);
         });
     });
 };
