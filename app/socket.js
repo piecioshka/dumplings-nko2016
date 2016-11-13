@@ -1,35 +1,11 @@
 'use strict';
 
-var SOCKET = require('./public/scripts/constants/socket');
-
-class PlayerCollection {
-    constructor() {
-        this.players = [];
-    }
-
-    add(player) {
-        this.players.push(player);
-    }
-
-    remove(player) {
-        var index = this.players.indexOf(player);
-        this.players.splice(index, 1);
-    }
-
-    update(playerId, player) {
-        let playerIndex = -1;
-        this.players.forEach((player, index) => {
-            if (player.id === playerId) {
-                playerIndex = index;
-            }
-        });
-        this.players[playerIndex] = player;
-    }
-}
+var SOCKET = require('../public/scripts/constants/socket');
+var PlayersCollection = require('./players-collection');
 
 module.exports = function (server) {
     var io = require('socket.io')(server);
-    var playerCollection = new PlayerCollection();
+    var playerCollection = new PlayersCollection();
 
     io.on('connection', function (socket) {
         console.log('a user connected');
@@ -55,7 +31,7 @@ module.exports = function (server) {
         socket.on(SOCKET.SETUP_PLAYER, function (player) {
             console.log('setup player: message: ' + JSON.stringify(player));
             playerCollection.add(player);
-            io.emit(SOCKET.SETUP_PLAYER, player, playerCollection.players);
+            io.emit(SOCKET.SETUP_PLAYER, playerCollection.players);
             me = player;
         });
 
