@@ -6,12 +6,11 @@
     "license": "MIT",
     "scripts": {
         "start": "sudo node --harmony index.js",
-        "dev": "nodemon index.js",
+        "dev:server": "nodemon index.js",
+        "dev:client": "webpack --progress -w",
         "clear": "rm -rf node_modules/ npm-debug.log public/dist/ typings/",
-        "build": "webpack --progress --profile",
-        "watch": "webpack --progress -w",
         "count": "find app -name '*.js' | xargs wc -l | sort",
-        "postinstall": "npm run build",
+        "postinstall": "webpack",
         "typings": "typings install"
     },
     "devDependencies": {
