@@ -4,6 +4,13 @@ function getRandomInteger(min, max) {
     return (Math.floor(Math.random() * (max - min + 1)) + min);
 }
 
+function shuffle(arr) {
+    for (let i = arr.length; i; i--) {
+        let j = Math.floor(Math.random() * i);
+        [arr[i - 1], arr[j]] = [arr[j], arr[i - 1]];
+    }
+}
+
 class PassengersCollection {
     constructor(io, socket) {
         this.io = io;
@@ -11,10 +18,15 @@ class PassengersCollection {
         this.passengers = new Set();
         this.coordinates = null;
         this.threshold = 10;
+        this.minimalDistance = 50;
     }
 
     setThreshold(threshold) {
         this.threshold = threshold;
+    }
+
+    setMinimalDistance(distance) {
+        this.minimalDistance = distance;
     }
 
     setCoordinates(coordinates) {
@@ -30,6 +42,8 @@ class PassengersCollection {
 
     getDestinationPointByDistance(initialCoords, minDistance) {
         let coordsArr = [...this.coordinates];
+
+        shuffle(coordsArr);
 
         for (let i = 0; i < coordsArr.length; i++) {
             let proposalCoords = coordsArr[i];
@@ -47,7 +61,7 @@ class PassengersCollection {
 
     getRandomEntryPoints() {
         let initial = this.getRandomCoordinates();
-        let destination = this.getDestinationPointByDistance(initial, 30);
+        let destination = this.getDestinationPointByDistance(initial, this.minimalDistance);
 
         return { initial, destination };
     }
@@ -62,6 +76,7 @@ class PassengersCollection {
         let count = this.countPassengersToCreate();
 
         for (let i = 0; i < count; i++) {
+            let entryPoints = this.getRandomEntryPoints();
             this.passengers.add(entryPoints);
         }
 
