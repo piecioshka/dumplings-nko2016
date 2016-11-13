@@ -17,6 +17,7 @@ module.exports = (server) => {
         let passengersCollection = new PassengersCollection(io, socket);
         passengersCollection.setCoordinates(coords);
         passengersCollection.setThreshold(200);
+        passengersCollection.setMinimalDistance(30);
         passengersCollection.setupListeners();
 
         let playersCollection = new PlayersCollection(io, socket);
