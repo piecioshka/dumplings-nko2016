@@ -144,6 +144,14 @@ class Taxi extends Phaser.Sprite {
         destination.spawn(x, y);
     }
 
+    deliver() {
+        console.log('Taxi#deliver');
+
+        let totalScore = this.passenger.getScore();
+        this.passenger.destroy();
+        alert(totalScore);
+    }
+
     deletePasenger() {
         this.passenger = null;
     }

@@ -130,10 +130,8 @@ class CityState extends Phaser.State {
         this.physics.arcade.collide(player, map);
         this.physics.arcade.collide(passengers, map);
         this.physics.arcade.collide(player, passengers, (taxi, passenger) => {
-            console.log('collision player  vs  passenger');
-
             if (!taxi.isFree()) {
-                console.warn('Taxi has a passenger');
+                passenger.body.enable = false;
                 return;
             }
 

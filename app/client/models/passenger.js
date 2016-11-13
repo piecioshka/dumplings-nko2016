@@ -41,14 +41,8 @@ class Passenger extends Phaser.Sprite {
         this.kill();
     }
 
-
-    deliver() {
-        console.log('Passenger#deliver');
-        this.isPickedUp = false;
-        this.destroy();
-        let total = (this.satisfaction * PASSENGER.POINTS);
-        debugger;
-        return total;
+    getScore() {
+        return (this.satisfaction / 100 * PASSENGER.POINTS);
     }
 
     startDecreasingSatisfaction() {
