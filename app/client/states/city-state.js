@@ -1,7 +1,7 @@
 let CBRadio = require('../models/cb');
 let Taxi = require('../models/taxi');
 let Passenger = require('../models/passenger');
-let Spawner = require('../../server/spawner');
+let Spawner = require('../helpers/spawner');
 let displayVersion = require('../helpers/version-helper').displayVersion;
 let SOCKET = require('../../server/constants/socket');
 
