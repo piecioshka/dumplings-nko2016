@@ -15,7 +15,7 @@ class CBRadio extends Phaser.Sprite {
         super(game, positionX, positionY, 'cb-radio');
         game.add.existing(this);
 
-        let positionXText = 230;
+        let positionXText = 130;
         let positionYText = GAME.GAME_HEIGHT - 50;
 
         this.fixedToCamera = true;

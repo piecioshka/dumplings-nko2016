@@ -14,13 +14,13 @@ class LoadingState extends Phaser.State {
         this.load.path = './assets/sprites/';
 
         this.load.image('river', 'river.png');
-        this.load.image('button', 'button.png');
         this.load.image('taxi-clouds', 'taxi-clouds.png');
         this.load.image('taxi-huge-2-with-logo', 'taxi-huge-2-with-logo.png');
         this.load.image('cb-radio', 'cb-radio.png');
         this.load.image('cross', 'cross.png');
         this.load.image('flag', 'flag.png');
         this.load.spritesheet('street', 'street.png', 64, 64);
+        this.load.spritesheet('button', 'button.png', 300, 84);
 
         this.load.path = './assets/sprites/taxi/';
 
