@@ -35,7 +35,6 @@ class PlayersCollection {
     }
 
     addEventListeners(socket, io) {
-
         socket.on(EVENTS.SETUP_PLAYER, (player) => {
             console.log('setup player: message: ' + JSON.stringify(player));
             this.add(player);

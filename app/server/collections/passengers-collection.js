@@ -7,7 +7,7 @@ function getRandomInteger(min, max) {
 class PassengersCollection {
     constructor() {
         this.passengers = new Set();
-        this.coords = null;
+        this.coordinates = null;
         this.threshold = 10;   
     }
 
@@ -15,25 +15,15 @@ class PassengersCollection {
         this.threshold = threshold;
     }
 
-    setCoords(coords) {
-        this.coords = new Set(coords);
+    setCoordinates(coordinates) {
+        this.coordinates = new Set(coordinates);
     }
 
-    addEventListeners(socket, io) {
-        socket.on(EVENTS.SET_PASSENGERS, (coords) => {
-            console.log('setup passengers: message: ' + JSON.stringify(coords));
-            this.setCoords(coords);
-            this.setThreshold(200);
-            this.generate();
-            io.emit(EVENTS.SET_PASSENGERS, this.passengers);
-        });
-    }
-
-    getRandomCoords() {
-        let max = this.coords.size - 1;
+    getRandomCoordinates() {
+        let max = (this.coordinates.size - 1);
         let index = getRandomInteger(0, max);
 
-        return [...this.coords][index];
+        return [...this.coordinates][index];
     }
 
     generate() {
@@ -43,9 +33,11 @@ class PassengersCollection {
 
         // INFO(ksyrytczyk): Coords must be more than threshold due to unique Set values.
         for (let i = this.countPassengersToCreate(); i > 0; i--) {
-            let coords = this.getRandomCoords();
+            let coords = this.getRandomCoordinates();
             this.passengers.add(coords);
         }
+
+        return this.passengers;
     }
 
     countPassengersToCreate() {

@@ -24,9 +24,10 @@ class CityState extends Phaser.State {
 
     setupPassengers() {
         this.passengerSpawner = new Spawner(this.game, Passenger);
-        this.passengerSpawner.setThreshold(200);
-        this.passengerSpawner.setMap(this.map);
-        this.passengerSpawner.spawn();
+
+        this.game.socket.on(SOCKET_EVENTS.SET_PASSENGERS, (coordinatesJSON) => {
+            this.passengerSpawner.spawn(coordinatesJSON);
+        });
     }
 
     setupWorld() {
