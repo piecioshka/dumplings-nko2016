@@ -1,4 +1,4 @@
-let CONSTANTS = require('../client/constants/game');
+let CONSTANTS = require('../constants/game');
 
 class Spawner {
     game = null;
