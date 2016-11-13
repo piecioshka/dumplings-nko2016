@@ -14,7 +14,6 @@ class LoadingState extends Phaser.State {
         this.load.path = './assets/sprites/';
 
         this.load.image('river', 'river.png');
-        this.load.image('taxi', 'taxi.png');
         this.load.image('button', 'button.png');
         this.load.image('taxi-clouds', 'taxi-clouds.png');
         this.load.image('taxi-huge-2-with-logo', 'taxi-huge-2-with-logo.png');
@@ -22,6 +21,12 @@ class LoadingState extends Phaser.State {
         this.load.image('cross', 'cross.png');
         this.load.image('flag', 'flag.png');
         this.load.spritesheet('street', 'street.png', 64, 64);
+
+        this.load.path = './assets/sprites/taxi/';
+
+        this.load.spritesheet('taxi-to-right', 'taxi-to-right.png', 128, 64);
+        this.load.spritesheet('taxi-to-left', 'taxi-to-left.png', 128, 64);
+        this.load.spritesheet('taxi-to-bottom', 'taxi-to-bottom.png', 84, 64);
 
         this.load.path = './assets/sprites/people/';
 

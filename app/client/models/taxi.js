@@ -26,7 +26,7 @@ class Taxi extends Phaser.Sprite {
     passenger = null;
 
     constructor(game, { nick, x, y, id }) {
-        super(game, 0, 0, 'taxi', 1);
+        super(game, 0, 0, 'taxi-to-right', 1);
 
         this.anchor.setTo(0.12, 0);
 
@@ -38,8 +38,14 @@ class Taxi extends Phaser.Sprite {
         this.setupControls();
         this.setupBody();
         this.moveLabel();
+        this.setupAnimation();
 
         game.add.existing(this);
+    }
+
+    setupAnimation() {
+        this.animations.add('drive', [0, 1]);
+        this.animations.play('drive', 8, true);
     }
 
     _createPositionX() {
@@ -99,18 +105,22 @@ class Taxi extends Phaser.Sprite {
 
         if (up.isDown) {
             velocity.y = -1 * speed;
+            this.loadTexture('taxi-to-bottom');
         }
 
         if (down.isDown) {
             velocity.y = speed;
+            this.loadTexture('taxi-to-bottom');
         }
 
         if (left.isDown) {
             velocity.x = -1 * speed;
+            this.loadTexture('taxi-to-left');
         }
 
         if (right.isDown) {
             velocity.x = speed;
+            this.loadTexture('taxi-to-right');
         }
 
         this.moveLabel();

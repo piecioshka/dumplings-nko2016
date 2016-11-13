@@ -156,8 +156,8 @@ class CityState extends Phaser.State {
     }
 
     render() {
-        this.game.debug.bodyInfo(this.game.player, 25, 25);
-        this.game.debug.body(this.game.player);
+        // this.game.debug.bodyInfo(this.game.player, 25, 25);
+        // this.game.debug.body(this.game.player);
 
         if (this.game.player.isMoved()) {
             this.game.socket.emit(SOCKET.MOVE_PLAYER, this.game.player.toJSON());
