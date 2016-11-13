@@ -137,8 +137,10 @@ class CityState extends Phaser.State {
                 console.warn('Taxi has a passenger');
                 return;
             }
-            passenger.pickUp();
             taxi.setPassenger(passenger);
+            taxi.setupDestinationPoint();
+            passenger.pickUp();
+
             // this.game.socket.emit(SOCKET.DESTROY_PASSENGER, passenger);
         });
     }

@@ -1,5 +1,4 @@
 let interval = require('../helpers/state-helper').interval;
-let DestinationPoint = require('../models/destination-point');
 
 const PASSENGER = require('../../constants/passenger');
 
@@ -27,16 +26,9 @@ class Passenger extends Phaser.Sprite {
         console.log('Passenger#pickUp');
         this.isPickedUp = true;
         this.startDecreasingSatisfaction();
-        this.putDestinationPoint();
         this.kill();
     }
 
-    putDestinationPoint() {
-        let destination = new DestinationPoint(this.game, this);
-        let { x, y } = this.entryPoints.destination;
-
-        destination.put(x, y);
-    }
 
     deliver() {
         console.log('Passenger#deliver');

@@ -3,6 +3,8 @@ let uuid = require('uuid');
 const GAME = require('../../constants/game');
 const TAXI = require('../../constants/taxi');
 
+let DestinationPoint = require('./destination-point');
+
 function createSize(sprite, width, height) {
     let spriteWidth = sprite.width;
     let spriteHeight = sprite.height;
@@ -134,6 +136,12 @@ class Taxi extends Phaser.Sprite {
 
     setPassenger(passenger) {
         this.passenger = passenger;
+    }
+
+    setupDestinationPoint() {
+        let destination = new DestinationPoint(this.game);
+        let { x, y } = this.passenger.entryPoints.destination;
+        destination.spawn(x, y);
     }
 
     deletePasenger() {
