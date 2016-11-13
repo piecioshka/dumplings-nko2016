@@ -42,13 +42,13 @@ class PassengersCollection {
         }
 
         // INFO(ksyrytczyk): Coords must be more than threshold due to unique Set values.
-        for (let i = this.countPassangersToCreate(); i > 0; i--) {
+        for (let i = this.countPassengersToCreate(); i > 0; i--) {
             let coords = this.getRandomCoords();
             this.passengers.add(coords);
         }
     }
 
-    countPassangersToCreate() {
+    countPassengersToCreate() {
         return (this.threshold - this.passengers.size);
     }
 }
