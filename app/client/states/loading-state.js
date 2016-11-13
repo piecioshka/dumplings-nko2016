@@ -1,5 +1,4 @@
 let EVENTS = require('../constants/events');
-let getCenterPositionX = require('../helpers/state-helper').getCenterPositionX;
 let delay = require('../helpers/state-helper').delay;
 let locale = require('../../../public/locale/en.json');
 
@@ -21,10 +20,8 @@ class LoadingState extends Phaser.State {
         this.load.image('button', 'button.png');
         this.load.image('taxi-clouds', 'taxi-clouds.png');
         this.load.image('taxi-big-1-with-logo', 'taxi-big-1-with-logo.png');
-        this.load.image('text-input', 'text-input.png');
         this.load.image('cb-radio', 'cb-radio.png');
         this.load.image('cross', 'cross.png');
-        this.load.image('gt', 'gt.png');
         this.load.image('flag', 'flag.png'); // 72x42
 
         this.load.path = './assets/maps/';
@@ -45,6 +42,7 @@ class LoadingState extends Phaser.State {
         this.setupBackground();
         this.setupWavingFlag();
         this.setupLoadingTitle();
+        this.setupSkipButton();
 
         this.setupPassenger();
         this.setupFirstCar();
@@ -84,6 +82,7 @@ class LoadingState extends Phaser.State {
 
         let $rope = this.add.rope(positionX, positionY, 'flag', null, points);
 
+        // Nie wolno zmieniać na Arrow Function!!1
         $rope.updateAnimation = function () {
             count += 0.1;
 
@@ -170,6 +169,12 @@ class LoadingState extends Phaser.State {
         delay(this, () => {
             $babeczka.destroy();
         }, DESTROY_DELAY);
+    }
+
+    setupSkipButton() {
+        let $skip = this.add.image(this.world.width - 35, 5, 'cross');
+        $skip.scale.set(0.5, 0.5);
+        // TODO(piecioshka): dorobić pominjanie intra
     }
 }
 
