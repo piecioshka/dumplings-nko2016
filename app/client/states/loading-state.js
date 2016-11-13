@@ -71,21 +71,23 @@ class LoadingState extends Phaser.State {
     }
 
     setupWavingFlag() {
-        var count = 0;
-        var length = 75 / 4;
-        var points = [];
-        var limit = 5;
+        let count = 0;
+        let length = 75 / 4;
+        let points = [];
+        let limit = 5;
+        let positionX = 93;
+        let positionY = 27;
 
-        for (var i = 0; i < limit; i++) {
+        for (let i = 0; i < limit; i++) {
             points.push(new Phaser.Point(i * length, 0));
         }
 
-        let $rope = this.add.rope(92, 27, 'flag', null, points);
+        let $rope = this.add.rope(positionX, positionY, 'flag', null, points);
 
         $rope.updateAnimation = function () {
             count += 0.1;
 
-            for (var i = 0; i < this.points.length; i++) {
+            for (let i = 0; i < this.points.length; i++) {
                 this.points[i].y = Math.sin(i * 0.5 + count) * 4;
             }
         };

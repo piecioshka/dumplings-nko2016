@@ -1,8 +1,15 @@
 let uuid = require('uuid');
 
-let CONSTANTS = require('../constants/game');
+let GAME = require('../constants/game');
+let TAXI = require('../constants/taxi');
 
-const TAXI_CONSTANTS = 400;
+function createSize(sprite, width, height) {
+    let spriteWidth = sprite.width;
+    let spriteHeight = sprite.height;
+    let offestX = (spriteWidth - width) / 2;
+    let offestY = (spriteHeight - height) / 2;
+    return [width, height, offestX, offestY];
+}
 
 class Taxi extends Phaser.Sprite {
     id = null;
@@ -16,8 +23,8 @@ class Taxi extends Phaser.Sprite {
         this.anchor.setTo(0.12, 0);
 
         this.id = id || uuid.v4();
-        this.x = x || 27 * CONSTANTS.TILE_WIDTH;
-        this.y = y || 24 * CONSTANTS.TILE_HEIGHT;
+        this.x = x || 27 * GAME.TILE_WIDTH;
+        this.y = y || 24 * GAME.TILE_HEIGHT;
 
         this.setupLabel(nick);
         this.setupControls();
@@ -58,7 +65,15 @@ class Taxi extends Phaser.Sprite {
     setupBody() {
         this.game.physics.arcade.enable(this);
         this.body.collideWorldBounds = true;
-        this.body.setSize(55, 50, 15, 7);
+        this.setHorizontalSize();
+    }
+
+    setHorizontalSize() {
+        this.body.setSize(...createSize(this, TAXI.TAXI_WIDTH, TAXI.TAXI_HEIGHT));
+    }
+
+    setVerticalSize() {
+        this.body.setSize(...createSize(this, TAXI.TAXI_HEIGHT, TAXI.TAXI_WIDTH));
     }
 
     setupControls() {
@@ -75,19 +90,23 @@ class Taxi extends Phaser.Sprite {
         let velocity = this.body.velocity;
 
         if (up.isDown) {
-            velocity.y = -1 * TAXI_CONSTANTS;
+            velocity.y = -1 * TAXI.TAXI_SPEED;
+            this.setVerticalSize();
         }
 
         if (down.isDown) {
-            velocity.y = TAXI_CONSTANTS;
+            velocity.y = TAXI.TAXI_SPEED;
+            this.setVerticalSize();
         }
 
         if (left.isDown) {
-            velocity.x = -1 * TAXI_CONSTANTS;
+            velocity.x = -1 * TAXI.TAXI_SPEED;
+            this.setHorizontalSize();
         }
 
         if (right.isDown) {
-            velocity.x = TAXI_CONSTANTS;
+            velocity.x = TAXI.TAXI_SPEED;
+            this.setHorizontalSize();
         }
 
         this.moveLabel();

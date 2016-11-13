@@ -1,4 +1,4 @@
-let CONSTANTS = require('../constants/game');
+let GAME = require('../constants/game');
 
 class Spawner {
     game = null;
@@ -83,8 +83,8 @@ class Spawner {
         let randomStreetTile = this.getRandomStreetTile();
         let { x, y } = randomStreetTile;
 
-        sprite.x = x * CONSTANTS.TILE_WIDTH;
-        sprite.y = y * CONSTANTS.TILE_HEIGHT;
+        sprite.x = x * GAME.TILE_WIDTH;
+        sprite.y = y * GAME.TILE_HEIGHT;
 
         sprite.events.onDestroy.add((e) => this.onDestroyHandler(e));
 
