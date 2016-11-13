@@ -12,7 +12,7 @@ Link do game: [dumplings.2016.nodeknockout.com](http://dumplings.2016.nodeknocko
     - map: 6400x6400 (px)
     - view port: 1024x640 (16 / 10 = 1.6)
     - tile: 64x64 (px)
-* [Adobe Photoshop](http://www.adobe.com/Photoshop‎) & [Adobe Illustrator](http://www.adobe.com/Photoshop‎)
+* [Adobe Photoshop](http://www.adobe.com/Photoshop) & [Adobe Illustrator](http://www.adobe.com/Illustrator)
 * [WebStorm](https://www.jetbrains.com/webstorm/) & [Sublime Text](https://www.sublimetext.com/)
 
 ### JavaScript Libraries
@@ -21,19 +21,19 @@ Link do game: [dumplings.2016.nodeknockout.com](http://dumplings.2016.nodeknocko
 
 * [Babel.js](https://babeljs.io/)
 * [Phaser](https://phaser.io/) - as main game engine
-* [super-event-emitter](https://github.com/piecioshka/super-event-emitter)
+* [super-event-emitter](https://github.com/piecioshka/super-event-emitter) - mini lirary for event management
 * [uuid](https://www.npmjs.com/package/uuid)
 
 #### Server side
 
 * [Express](http://expressjs.com/)
-* [Socket.io](http://socket.io)
+* [Socket.io](http://socket.io) - best library for set comminitation layer
 
 ### Tools
 
 * [yarn](https://github.com/yarnpkg/yarn)
 * [nodemon](https://github.com/remy/nodemon)
-* [Webpack](https://webpack.github.io/)
+* [Webpack](https://webpack.github.io/) - great tool for build modules from JS / CSS / IMG / HTML files
 
 ## Installation
 

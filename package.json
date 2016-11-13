@@ -5,7 +5,7 @@
     "main": "index.js",
     "license": "MIT",
     "scripts": {
-        "start": "node index.js",
+        "start": "node --harmony index.js",
         "dev": "nodemon index.js",
         "clear": "rm -rf node_modules/ npm-debug.log public/dist/ typings/",
         "build": "webpack --progress --profile",
