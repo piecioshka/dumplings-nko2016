@@ -9,8 +9,7 @@ class LoadingState extends Phaser.State {
     }
 
     preload() {
-        let progressBar = this.add.sprite(getCenterPositionX(this, 'pixel-loading'), 250, 'pixel-loading');
-        this.load.setPreloadSprite(progressBar);
+        this.setupPreloader();
 
         this.load.path = './assets/sprites/';
 
@@ -32,6 +31,15 @@ class LoadingState extends Phaser.State {
         this.load.tilemap('city-warsaw', 'warsaw.json', null, Phaser.Tilemap.TILED_JSON);
     }
 
+    setupPreloader() {
+        let positionX = this.world.centerX;
+        let positionY = 120;
+        let progressBar = this.add.sprite(positionX, positionY, 'pixel-loading');
+        progressBar.anchor.set(0.5, 0.5);
+        progressBar.scale.set(1.7, 1.5);
+        this.load.setPreloadSprite(progressBar);
+    }
+
     create() {
         this.setupBackground();
         this.setupLoadingTitle();
@@ -47,7 +55,9 @@ class LoadingState extends Phaser.State {
 
     setupLoadingTitle() {
         let style = { fill: '#ffffff' };
-        let $text = this.add.text(this.world.centerX, 200, locale.PLEASE_WAIT, style);
+        let positionX = this.world.centerX;
+        let positionY = this.world.height - 40;
+        let $text = this.add.text(positionX, positionY, locale.PLEASE_WAIT, style);
         $text.anchor.setTo(0.5, 0);
     }
 
