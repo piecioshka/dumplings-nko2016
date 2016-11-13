@@ -109,7 +109,6 @@ class CityState extends Phaser.State {
     }
 
     update() {
-        this.game.player.resetVelocity();
         this.game.player.updateVelocity();
         this.handleCollision();
     }
@@ -117,7 +116,6 @@ class CityState extends Phaser.State {
     handleCollision() {
         this.physics.arcade.collide(this.game.player, this.layer);
         this.physics.arcade.collide(this.game.player, this.passengerSpawner.getSpriteGroup(), (player, item) => {
-            console.log('Collect item', item);
             item.destroy();
         });
     }
@@ -128,6 +126,14 @@ class CityState extends Phaser.State {
 
         if (this.game.player.isMoved()) {
             this.game.socket.emit(SOCKET.MOVE_PLAYER, this.game.player.toJSON());
+        }
+
+        if (this.game.player.deltaX) {
+            this.game.player.setHorizontalSize();
+        }
+
+        if (this.game.player.deltaY) {
+            this.game.player.setVerticalSize();
         }
     }
 }
